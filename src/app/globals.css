@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg-primary: var(#0F0E11);
+  --bg-cash: var(#161716);
+  --bg-icons: var(#71717A);
+  --green-detail: var(#55B02E);
+  --expense-color: var(#E93030);
+  --bg-expense-color: var(rgba(233, 48, 48, 0.8));
+}
+
 html {
   font-size: 62.5%;
 }
