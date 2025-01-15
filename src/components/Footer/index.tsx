@@ -14,7 +14,7 @@ export default function Footer() {
                 </li>
                 <li className="flex flex-col items-center mt-3 cursor-pointer">
                     <ArrowUpDown  />
-                    <span>Transações</span>
+                    <span>Nova transação</span>
                 </li>
             </ul>
         </footer>
