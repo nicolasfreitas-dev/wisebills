@@ -1,6 +1,6 @@
 export default function Debito() {
     return (
-        <div className="w-full flex items-center justify-evenly gap-7 mb-2">
+        <div className="w-full flex items-center justify-between gap-7 mb-2">
             <span className="text-xl font-bold">15/01</span>
             <div>
                 <p className="text-xl font-bold">Computador</p>

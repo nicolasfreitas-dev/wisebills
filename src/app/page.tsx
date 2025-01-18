@@ -4,7 +4,7 @@ import { TrendingDown, Wallet } from "lucide-react";
 
 export default function Home() {
     return (
-        <main className="mx-10">
+        <main className="mx-10 pb-32">
             <h1 className="font-bold text-3xl mt-10">Dashboard</h1>
             <Amount background="bg-bg-cash">
                 <div className="flex items-center gap-3 ml-6 mt-7">
