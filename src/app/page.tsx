@@ -1,5 +1,5 @@
 import Amount from "@/components/Amount";
-import Debito from "@/components/Debito";
+// import Table from "@/components/Table";
 import { TrendingDown, Wallet } from "lucide-react";
 
 export default function Home() {
@@ -36,14 +36,14 @@ export default function Home() {
                 <hr className="border-border-color" />
                 <div>
                     <h4 className="text-2xl font-bold mt-7 mb-5">Pendentes</h4>
+                    {/* <Debito />
                     <Debito />
                     <Debito />
                     <Debito />
-                    <Debito />
-                    <Debito />
+                    <Debito /> */}
                     <h4 className="text-2xl font-bold mt-7 mb-5">Concluídas</h4>
-                    <Debito />
-                    <Debito />
+                    {/* <Debito />
+                    <Debito /> */}
                 </div>
             </div>
         </main>
