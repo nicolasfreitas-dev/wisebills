@@ -1,6 +1,6 @@
 import { Table, TableBody, TableCell, TableRow } from "../ui/table";
 
-export default function TableTransactions() {
+export default function TransactionsTable() {
     return (
         <Table>
             <TableBody>
@@ -11,7 +11,7 @@ export default function TableTransactions() {
                         <span>Parcela 3 de 3</span>
                     </TableCell>
                     <TableCell className="text-lg font-bold">R$ 900,00</TableCell>
-                    <input type="checkbox" />
+                    {/* <input type="checkbox" /> */}
                 </TableRow>
             </TableBody>
         </Table>

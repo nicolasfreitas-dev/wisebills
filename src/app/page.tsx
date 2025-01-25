@@ -1,4 +1,4 @@
-import TableTransactions from "@/components/TableTransactions";
+import TransactionsTable from "@/components/TransactionsTable";
 import ValueContainer from "@/components/ValueContainer";
 import { TrendingDown, Wallet } from "lucide-react";
 
@@ -36,10 +36,9 @@ export default function Home() {
                 <hr className="border-border-color" />
                 <div>
                     <h4 className="text-2xl font-bold mt-7 mb-5">Pendentes</h4>
-                    <TableTransactions />
+                    <TransactionsTable />
                     <h4 className="text-2xl font-bold mt-7 mb-5">Concluídas</h4>
-                    <TableTransactions />
-                    
+                    <TransactionsTable />
                 </div>
             </div>
         </main>
