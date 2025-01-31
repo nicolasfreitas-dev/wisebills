@@ -18,9 +18,9 @@ export default function Footer({ openModal }: FooterProps) {
                     <ChartLine  />
                     <button>Detalhes</button>
                 </li>
-                <li className="flex flex-col items-center mt-3 cursor-pointer">
+                <li className="flex flex-col items-center mt-3 cursor-pointer" onClick={openModal}>
                     <ArrowUpDown  />
-                    <button onClick={openModal}>Nova transação</button>
+                    <button>Nova transação</button>
                 </li>
             </ul>
         </footer>
