@@ -12,15 +12,15 @@ export default function Footer({ openModal }: FooterProps) {
             <ul className="flex justify-evenly">
                 <li className="flex flex-col items-center mt-3 cursor-pointer">
                     <HouseIcon  />
-                    <button>Home</button>
+                    <p>Home</p>
                 </li>
                 <li className="flex flex-col items-center mt-3 cursor-pointer">
                     <ChartLine  />
-                    <button>Detalhes</button>
+                    <p>Detalhes</p>
                 </li>
                 <li className="flex flex-col items-center mt-3 cursor-pointer" onClick={openModal}>
                     <ArrowUpDown  />
-                    <button>Nova transação</button>
+                    <p>Nova transação</p>
                 </li>
             </ul>
         </footer>

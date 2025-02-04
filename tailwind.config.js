@@ -12,6 +12,7 @@ module.exports = {
                 "bg-secondary": "#141414",
                 "gray-detail": "#71717A",
                 "green-detail": "#55B02E",
+                "dark-gray-detail": "#1F1F21",
                 "bg-cash": "#161716",
                 "expense-color": "#E93030",
                 "bg-expense-color": "rgba(246, 53, 46, 0.08)",
