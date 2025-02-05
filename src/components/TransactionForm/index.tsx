@@ -1,5 +1,6 @@
 "use client"
 
+import DatePickerField from "../DatePickerField";
 import SelectField from "../SelectField";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -40,6 +41,7 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                 selectItem={["Lazer", "Alimentação", "Transporte", "Entretenimento"]}
             />
             <Label className="text-2xl font-bold pb-2">Data</Label>
+            <DatePickerField />
             <div className="w-full flex items-center justify-center gap-5">
                 <Button
                     className="w-full h-14 bg-dark-gray-detail rounded-[1.2rem]"
