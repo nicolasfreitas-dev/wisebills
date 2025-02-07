@@ -1,13 +1,13 @@
 "use client"
 
-import DatePickerField from "../DatePickerField";
-import SelectField from "../SelectField";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
+import DatePickerField from "../DatePickerField"
+import SelectField from "../SelectField"
+import { Button } from "../ui/button"
+import { Input } from "../ui/input"
+import { Label } from "../ui/label"
 
 interface TransactionFormProps {
-    isClosed: () => void;
+    isClosed: () => void
 }
 
 export default function TransactionForm({ isClosed }: TransactionFormProps) {
@@ -54,5 +54,5 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                 </Button>
             </div>
         </form>
-    );
+    )
 }

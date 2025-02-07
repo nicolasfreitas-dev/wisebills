@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowUpDown, ChartLine, HouseIcon } from "lucide-react";
+import { ArrowUpDown, ChartLine, HouseIcon } from "lucide-react"
 
 interface FooterProps {
     openModal: () => void

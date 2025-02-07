@@ -1,15 +1,15 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import TransactionsTable from "@/components/TransactionsTable";
-import ValueContainer from "@/components/ValueContainer";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import Modal from "@/components/Modal";
-import { TrendingDown, Wallet } from "lucide-react";
+import { useState } from "react"
+import TransactionsTable from "@/components/TransactionsTable"
+import ValueContainer from "@/components/ValueContainer"
+import Footer from "@/components/Footer"
+import Header from "@/components/Header"
+import Modal from "@/components/Modal"
+import { TrendingDown, Wallet } from "lucide-react"
 
 export default function Home() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     return (
         <>
@@ -62,5 +62,5 @@ export default function Home() {
             </main>
             <Footer openModal={() => setIsModalOpen(true)} />
         </>
-    );
+    )
 }

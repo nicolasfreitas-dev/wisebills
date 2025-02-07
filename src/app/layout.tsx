@@ -5,7 +5,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "SobraCash",
   description: "Aplicativo de gestão financeira",
-};
+}
 
 export default function RootLayout({
   children,
@@ -18,5 +18,5 @@ export default function RootLayout({
         {children}
       </body>
     </html>
-  );
+  )
 }
