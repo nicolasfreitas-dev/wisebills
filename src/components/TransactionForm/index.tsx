@@ -1,18 +1,28 @@
-"use client"
+"use client";
 
-import DatePickerField from "../DatePickerField"
-import SelectField from "../SelectField"
-import { Button } from "../ui/button"
-import { Input } from "../ui/input"
-import { Label } from "../ui/label"
+import { useForm } from "react-hook-form";
+import DatePickerField from "../DatePickerField";
+import SelectField from "../SelectField";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 interface TransactionFormProps {
-    isClosed: () => void
+    isClosed: () => void;
 }
 
 export default function TransactionForm({ isClosed }: TransactionFormProps) {
+    const form = useForm();
+
+    const onSubmit = (data: any) => {
+        console.log(data);
+    };
+
     return (
-        <form className="w-full flex flex-col items-start px-8">
+        <form
+            className="w-full flex flex-col items-start px-8"
+            onSubmit={form.handleSubmit(onSubmit)}
+        >
             <Label className="text-2xl font-bold pb-2">Título</Label>
             <Input
                 className="h-14 rounded-[1.2rem] bg-bg-secondary border-border-color mb-8 text-xl"
@@ -33,15 +43,22 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
             </Label>
             <SelectField
                 placeholder="Selecione"
-                selectItem={["Pix", "À vista", "Cartão"]}
+                selectItem={["Pix", "À vista", "Cartão", "Depósito bancário"]}
             />
             <Label className="text-2xl font-bold pb-2">Categoria</Label>
             <SelectField
                 placeholder="Selecione"
-                selectItem={["Lazer", "Alimentação", "Transporte", "Entretenimento"]}
+                selectItem={[
+                    "Lazer",
+                    "Alimentação",
+                    "Transporte",
+                    "Entretenimento",
+                    "Salário",
+                ]}
             />
             <Label className="text-2xl font-bold pb-2">Data</Label>
-            <DatePickerField />
+            <DatePickerField
+            />
             <div className="w-full flex items-center justify-center gap-5">
                 <Button
                     className="w-full h-14 bg-dark-gray-detail rounded-[1.2rem]"
@@ -54,5 +71,5 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                 </Button>
             </div>
         </form>
-    )
+    );
 }

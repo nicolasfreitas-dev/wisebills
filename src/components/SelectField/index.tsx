@@ -3,12 +3,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 interface SelectFieldProps {
     placeholder: string
     selectItem: string[]
-
 }
 
 export default function SelectField({ placeholder, selectItem }: SelectFieldProps) {
     return (
-        <Select>
+        <Select >
             <SelectTrigger className="h-14 rounded-[1.2rem] border-border-color mb-8 text-xl">
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
