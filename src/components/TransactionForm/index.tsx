@@ -1,6 +1,5 @@
 "use client";
 
-import { useForm } from "react-hook-form";
 import DatePickerField from "../DatePickerField";
 import SelectField from "../SelectField";
 import { Button } from "../ui/button";
@@ -12,16 +11,9 @@ interface TransactionFormProps {
 }
 
 export default function TransactionForm({ isClosed }: TransactionFormProps) {
-    const form = useForm();
-
-    const onSubmit = (data: any) => {
-        console.log(data);
-    };
-
     return (
         <form
             className="w-full flex flex-col items-start px-8"
-            onSubmit={form.handleSubmit(onSubmit)}
         >
             <Label className="text-2xl font-bold pb-2">Título</Label>
             <Input
