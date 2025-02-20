@@ -39,7 +39,7 @@ export default function TransactionsTable({ transactions }: TransactionTableProp
                                         : "text-green-detail"
                                 }`}
                             >
-                                {`R$ ${transaction.amount}`}
+                                {`R$ ${parseFloat(transaction.amount).toFixed(2)}`}
                             </TableCell>
                         </TableRow>
                     );
