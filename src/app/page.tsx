@@ -22,6 +22,26 @@ export default function Home() {
         setTransactions(prev => ([...prev, newTransaction]))
     }
 
+    const calculateBalance = () => {
+        let balance = 0
+        let expenses = 0
+
+        transactions.forEach((transaction) => {
+            const amount = parseFloat(transaction.amount.replace(/[^0-9,-]/g, "").replace(",", "."))
+
+            if (transaction.type === "Deposito") {
+                balance += amount
+            } else {
+                balance -= amount
+                expenses += amount
+            }
+        })
+
+        return { balance, expenses }
+    }
+
+    const { balance, expenses } = calculateBalance()
+
     return (
         <>
             <Header />
@@ -34,7 +54,9 @@ export default function Home() {
                         </div>
                         <h3 className="text-2xl text-gray-detail">Saldo</h3>
                     </div>
-                    <span className="font-bold text-4xl ml-6">R$ 3.900,00</span>
+                    <span className="font-bold text-4xl ml-6">
+                        {`R$ ${balance.toFixed(2)}`}
+                    </span>
                     <Button
                         className="bg-green-detail ml-6 mt-3 rounded-[20px] px-8 py-6 text-xl"
                         onClick={handleModalOpen}
@@ -51,7 +73,7 @@ export default function Home() {
                         <h3 className="text-2xl text-gray-detail">Despesas</h3>
                     </div>
                     <span className="font-bold text-4xl ml-6 mt-7">
-                        R$ 3.900,00
+                        {`R$ ${expenses.toFixed(2)}`}
                     </span>
                 </ValueContainer>
                 <div className="size-full border border-border-color rounded-[20px] flex flex-col mt-4 px-8">
