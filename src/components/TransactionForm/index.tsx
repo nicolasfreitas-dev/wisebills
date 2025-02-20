@@ -32,7 +32,7 @@ export default function TransactionForm({ isClosed, onAddTransaction }: Transact
         date: new Date(),
     });
 
-    const handleInputChange = (field: keyof Transaction, value: any) => {
+    const handleInputChange = (field: keyof Transaction, value: string | Date) => {
         setTransaction(prev => ({...prev, [field]: value}))
     }
 
@@ -80,14 +80,19 @@ export default function TransactionForm({ isClosed, onAddTransaction }: Transact
                 onChange={(value) => handleInputChange("paymentMethod", value)}
             />
             {transaction.paymentMethod === "Cartão" && (
-                <SelectField
-                    placeholder="Números de parcelas"
-                    selectItem={[ "1x", "2x", "3x", "4x", "5x", "6x", "7x", "8x", "9x", "10x", "11x", "12x" ]}
-                    value={transaction.parcel}
-                    onChange={(value) =>
-                        handleInputChange("parcel", value)
-                    }
-                />
+                <>
+                    <Label className="text-2xl font-bold pb-2">
+                    Número de parcelas
+                    </Label>
+                    <SelectField
+                        placeholder="Selecione"
+                        selectItem={[ "1x", "2x", "3x", "4x", "5x", "6x", "7x", "8x", "9x", "10x", "11x", "12x" ]}
+                        value={transaction.parcel}
+                        onChange={(value) =>
+                            handleInputChange("parcel", value)
+                        }
+                    />
+                </>
             )}
             <Label className="text-2xl font-bold pb-2">Categoria</Label>
             <SelectField
