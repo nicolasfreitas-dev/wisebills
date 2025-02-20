@@ -9,7 +9,6 @@ import Modal from "@/components/Modal"
 import { ArrowUpDown, TrendingDown, Wallet } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
