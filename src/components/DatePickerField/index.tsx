@@ -9,11 +9,11 @@ import { CalendarIcon } from "lucide-react"
 
 interface DatePickerProps {
     value?: Date;
-    onChange: (date: Date) => void;
+    onChange?: (date: Date) => void;
 }
 
 export default function DatePickerField({ value, onChange }: DatePickerProps) {
-    const [date, setDate] = React.useState<Date>()
+    const date = value || new Date()
 
     return (
         <Popover>
@@ -41,14 +41,11 @@ export default function DatePickerField({ value, onChange }: DatePickerProps) {
                 <Calendar
                     mode="single"
                     selected={date}
-                    onSelect={(newDate) => {
-                        setDate(newDate);
-                    }}
+                    onSelect={onChange}
                     initialFocus
                     locale={ptBR}
                     fixedWeeks
                     value={value}
-                    onChange={onChange}
                 />
             </PopoverContent>
         </Popover>

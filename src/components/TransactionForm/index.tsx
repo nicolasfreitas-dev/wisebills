@@ -41,6 +41,8 @@ export default function TransactionForm({ isClosed, onAddTransaction }: Transact
 
         onAddTransaction(transaction)
 
+        console.log(transaction);
+
         isClosed()
     }
 
@@ -86,7 +88,7 @@ export default function TransactionForm({ isClosed, onAddTransaction }: Transact
                     </Label>
                     <SelectField
                         placeholder="Selecione"
-                        selectItem={[ "1x", "2x", "3x", "4x", "5x", "6x", "7x", "8x", "9x", "10x", "11x", "12x" ]}
+                        selectItem={[ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" ]}
                         value={transaction.parcel}
                         onChange={(value) =>
                             handleInputChange("parcel", value)
@@ -110,7 +112,11 @@ export default function TransactionForm({ isClosed, onAddTransaction }: Transact
             <Label className="text-2xl font-bold pb-2">Data</Label>
             <DatePickerField
                 value={transaction.date}
-                onChange={(date) => handleInputChange("date", date)}
+                onChange={(date) => {
+                    if (date) {
+                        handleInputChange("date", date)}
+                    }
+                }
             />
             <div className="w-full flex items-center justify-center gap-5">
                 <Button
