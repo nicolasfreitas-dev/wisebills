@@ -16,6 +16,7 @@ export interface Transaction {
     amount: string,
     type: string,
     paymentMethod: string,
+    parcel?: string,
     category: string,
     date: Date
 }
@@ -26,6 +27,7 @@ export default function TransactionForm({ isClosed, onAddTransaction }: Transact
         amount: "",
         type: "",
         paymentMethod: "",
+        parcel: "",
         category: "",
         date: new Date(),
     });
@@ -43,7 +45,10 @@ export default function TransactionForm({ isClosed, onAddTransaction }: Transact
     }
 
     return (
-        <form className="w-full flex flex-col items-start px-8" onSubmit={handleSubmit}>
+        <form
+            className="w-full flex flex-col items-start px-8"
+            onSubmit={handleSubmit}
+        >
             <Label className="text-2xl font-bold pb-2">Título</Label>
             <Input
                 className="h-14 rounded-[1.2rem] bg-bg-secondary border-border-color mb-8 text-xl"
@@ -74,6 +79,16 @@ export default function TransactionForm({ isClosed, onAddTransaction }: Transact
                 value={transaction.paymentMethod}
                 onChange={(value) => handleInputChange("paymentMethod", value)}
             />
+            {transaction.paymentMethod === "Cartão" && (
+                <SelectField
+                    placeholder="Números de parcelas"
+                    selectItem={[ "1x", "2x", "3x", "4x", "5x", "6x", "7x", "8x", "9x", "10x", "11x", "12x" ]}
+                    value={transaction.parcel}
+                    onChange={(value) =>
+                        handleInputChange("parcel", value)
+                    }
+                />
+            )}
             <Label className="text-2xl font-bold pb-2">Categoria</Label>
             <SelectField
                 placeholder="Selecione"
@@ -88,7 +103,10 @@ export default function TransactionForm({ isClosed, onAddTransaction }: Transact
                 onChange={(value) => handleInputChange("category", value)}
             />
             <Label className="text-2xl font-bold pb-2">Data</Label>
-            <DatePickerField value={transaction.date} onChange={(date) => handleInputChange("date", date)} />
+            <DatePickerField
+                value={transaction.date}
+                onChange={(date) => handleInputChange("date", date)}
+            />
             <div className="w-full flex items-center justify-center gap-5">
                 <Button
                     className="w-full h-14 bg-dark-gray-detail rounded-[1.2rem]"
@@ -97,7 +115,10 @@ export default function TransactionForm({ isClosed, onAddTransaction }: Transact
                 >
                     Cancelar
                 </Button>
-                <Button className="w-full h-14 bg-green-detail rounded-[1.2rem]" type="submit">
+                <Button
+                    className="w-full h-14 bg-green-detail rounded-[1.2rem]"
+                    type="submit"
+                >
                     Adicionar
                 </Button>
             </div>

@@ -1,11 +1,12 @@
 import { X } from "lucide-react";
-import TransactionForm from "../TransactionForm"
+import TransactionForm, { Transaction } from "../TransactionForm"
 interface ModalProps {
     isOpen: boolean
     isClosed: () => void
+    onAddTransaction: (transaction: Transaction) => void
 }
 
-export default function Modal({ isOpen, isClosed }: ModalProps) {
+export default function Modal({ isOpen, isClosed, onAddTransaction }: ModalProps) {
     if (!isOpen) return null;
 
     return (
@@ -18,7 +19,7 @@ export default function Modal({ isOpen, isClosed }: ModalProps) {
                 <p className="text-2xl text-gray-detail pb-8">
                     Insira as informações abaixo
                 </p>
-                <TransactionForm isClosed={isClosed} />
+                <TransactionForm isClosed={isClosed} onAddTransaction={onAddTransaction} />
             </div>
         </div>
     );

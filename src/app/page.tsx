@@ -8,12 +8,18 @@ import Header from "@/components/Header"
 import Modal from "@/components/Modal"
 import { ArrowUpDown, TrendingDown, Wallet } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Transaction } from "@/components/TransactionForm"
 
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [transactions, setTransactions] = useState<Transaction[]>([])
 
     const handleModalOpen = () => {
         setIsModalOpen(true)
+    }
+
+    const handleAddTransaction = (newTransaction: Transaction) => {
+        setTransactions(prev => ([...prev, newTransaction]))
     }
 
     return (
@@ -58,12 +64,13 @@ export default function Home() {
                         <h4 className="text-2xl font-bold mt-7 mb-5">
                             Pendentes
                         </h4>
-                        <TransactionsTable />
+                        <TransactionsTable transactions={transactions} />
                     </div>
                 </div>
                 <Modal
                     isOpen={isModalOpen}
                     isClosed={() => setIsModalOpen(false)}
+                    onAddTransaction={handleAddTransaction}
                 />
             </main>
             <Footer />
