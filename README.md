@@ -1,4 +1,4 @@
-<h1 align="center" style="font-weight: bold;">SobraCash 💻</h1>
+<h1 align="center" style="font-weight: bold;">SobraCash (Front-end) 💻</h1>
 
 <p align="center">
  <a href="#tech">Tecnologias</a> • 
@@ -39,7 +39,6 @@ Para rodar este projeto na sua máquina será necessária que tenha instalado No
 
 - [NodeJS](https://nodejs.org/pt)
 - [GIT](https://git-scm.com/downloads)
-- [POSTGRESSQL](https://www.postgresql.org/)
 
 <h3>Clonando</h3>
 
