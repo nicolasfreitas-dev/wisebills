@@ -28,8 +28,6 @@
 - ShadcnUI
 - Zod
 - React Hook Form
-- Prisma
-- PostgresSQL
 
 <h2 id="started">🚀 Como utilizar o projeto</h2>
 
