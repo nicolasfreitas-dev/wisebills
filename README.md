@@ -13,11 +13,11 @@
      <a href="#" target="_blank">Visite este Projeto</a>
 </p>
 
-<h4 align="center">🚧 Em construção...  🚧</h4>
+<h4 align="center">🚧 Projeto em construção...  🚧</h4>
 
 <h2 id="layout">🎨 Layout</h2>
 
-![image](https://github.com/user-attachments/assets/530be478-fae9-40d6-80a4-3f45e35ba617)
+![image](https://github.com/user-attachments/assets/e6041890-2e56-4096-bee5-1dd6c12c7a88)
 
 <h2 id="tech">💻 Tecnologias</h2>
 
