@@ -6,14 +6,14 @@
 </p>
 
 <p align="center">
-    Um aplicação web, desenvolvida seguindo os princípios de mobile first, com o objetivo de facilitar a organização e o gerenciamento financeiro do usuário.
+    Uma aplicação web, desenvolvida seguindo os princípios de mobile first, com o objetivo de facilitar a organização e o gerenciamento financeiro do usuário.
 </p>
 
 <p align="center">
      <a href="#" target="_blank">Visite este Projeto</a>
 </p>
 
-<h4 align="center">🚧 Em construção...  🚧</h4>
+<h4 align="center">🚧 Projeto em construção...  🚧</h4>
 
 <h2 id="layout">🎨 Layout</h2>
 
