@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-    Um aplicação web desenvolvida com o objetivo de facilitar a organização e o gerenciamento financeiro do usuário.
+    Uma aplicação web desenvolvida com o objetivo de facilitar a organização e o gerenciamento financeiro do usuário.
 </p>
 
 <p align="center">
