@@ -41,6 +41,7 @@ export default function TransactionsTable({ transactions }: TransactionTableProp
                             >
                                 {`R$ ${parseFloat(transaction.amount).toFixed(2)}`}
                             </TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                     );
                 })

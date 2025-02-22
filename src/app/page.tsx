@@ -31,9 +31,16 @@ export default function Home() {
 
             if (transaction.type === "Deposito") {
                 balance += amount
+                
+            } 
+
+            if (transaction.type === "Gasto") {
+                expenses += amount
+                
+            } else if (balance < 0) {
+                return;
             } else {
                 balance -= amount
-                expenses += amount
             }
         })
 
