@@ -1,13 +1,15 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 
 interface SelectFieldProps {
-    placeholder: string
-    selectItem: string[]
+    placeholder: string,
+    selectItem: string[],
+    value?: string,
+    onChange: (value: string) => void;
 }
 
-export default function SelectField({ placeholder, selectItem }: SelectFieldProps) {
+export default function SelectField({ placeholder, selectItem, value, onChange }: SelectFieldProps) {
     return (
-        <Select >
+        <Select value={value} onValueChange={onChange}>
             <SelectTrigger className="h-14 rounded-[1.2rem] border-border-color mb-8 text-xl">
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>

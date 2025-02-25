@@ -7,8 +7,13 @@ import { Calendar } from "../ui/calendar"
 import { ptBR } from "date-fns/locale/pt-BR"
 import { CalendarIcon } from "lucide-react"
 
-export default function DatePickerField() {
-    const [date, setDate] = React.useState<Date>()
+interface DatePickerProps {
+    value?: Date;
+    onChange?: (date: Date) => void;
+}
+
+export default function DatePickerField({ value, onChange }: DatePickerProps) {
+    const date = value || new Date()
 
     return (
         <Popover>
@@ -36,12 +41,11 @@ export default function DatePickerField() {
                 <Calendar
                     mode="single"
                     selected={date}
-                    onSelect={(newDate) => {
-                        setDate(newDate);
-                    }}
+                    onSelect={onChange}
                     initialFocus
                     locale={ptBR}
                     fixedWeeks
+                    value={value}
                 />
             </PopoverContent>
         </Popover>

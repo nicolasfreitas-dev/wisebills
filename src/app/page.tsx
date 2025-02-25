@@ -8,14 +8,46 @@ import Header from "@/components/Header"
 import Modal from "@/components/Modal"
 import { ArrowUpDown, TrendingDown, Wallet } from "lucide-react"
 import { Button } from "@/components/ui/button"
-
+import { Transaction } from "@/components/TransactionForm"
 
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [transactions, setTransactions] = useState<Transaction[]>([])
 
     const handleModalOpen = () => {
         setIsModalOpen(true)
     }
+
+    const handleAddTransaction = (newTransaction: Transaction) => {
+        setTransactions(prev => ([...prev, newTransaction]))
+    }
+
+    const calculateBalance = () => {
+        let balance = 0
+        let expenses = 0
+
+        transactions.forEach((transaction) => {
+            const amount = parseFloat(transaction.amount.replace(/[^0-9,-]/g, "").replace(",", "."))
+
+            if (transaction.type === "Deposito") {
+                balance += amount
+                
+            } 
+
+            if (transaction.type === "Gasto") {
+                expenses += amount
+                
+            } else if (balance < 0) {
+                return;
+            } else {
+                balance -= amount
+            }
+        })
+
+        return { balance, expenses }
+    }
+
+    const { balance, expenses } = calculateBalance()
 
     return (
         <>
@@ -29,7 +61,9 @@ export default function Home() {
                         </div>
                         <h3 className="text-2xl text-gray-detail">Saldo</h3>
                     </div>
-                    <span className="font-bold text-4xl ml-6">R$ 3.900,00</span>
+                    <span className="font-bold text-4xl ml-6">
+                        {`R$ ${balance.toFixed(2)}`}
+                    </span>
                     <Button
                         className="bg-green-detail ml-6 mt-3 rounded-[20px] px-8 py-6 text-xl"
                         onClick={handleModalOpen}
@@ -46,7 +80,7 @@ export default function Home() {
                         <h3 className="text-2xl text-gray-detail">Despesas</h3>
                     </div>
                     <span className="font-bold text-4xl ml-6 mt-7">
-                        R$ 3.900,00
+                        {`R$ ${expenses.toFixed(2)}`}
                     </span>
                 </ValueContainer>
                 <div className="size-full border border-border-color rounded-[20px] flex flex-col mt-4 px-8">
@@ -59,12 +93,13 @@ export default function Home() {
                         <h4 className="text-2xl font-bold mt-7 mb-5">
                             Pendentes
                         </h4>
-                        <TransactionsTable />
+                        <TransactionsTable transactions={transactions} />
                     </div>
                 </div>
                 <Modal
                     isOpen={isModalOpen}
                     isClosed={() => setIsModalOpen(false)}
+                    onAddTransaction={handleAddTransaction}
                 />
             </main>
             <Footer />
