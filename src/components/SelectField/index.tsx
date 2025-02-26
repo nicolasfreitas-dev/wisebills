@@ -1,16 +1,31 @@
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import { useController, UseControllerProps } from "react-hook-form";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "../ui/select";
 
-interface SelectFieldProps {
-    placeholder: string,
-    selectItem: string[],
-    value?: string,
-    onChange: (value: string) => void;
+interface SelectFieldProps extends UseControllerProps {
+    placeholder: string
+    selectItem: string[]
 }
 
-export default function SelectField({ placeholder, selectItem, value, onChange }: SelectFieldProps) {
+export default function SelectField({
+    placeholder,
+    selectItem,
+    ...props
+}: SelectFieldProps) {
+    const { field } = useController(props);
+
     return (
-        <Select value={value} onValueChange={onChange}>
-            <SelectTrigger className="h-14 rounded-[1.2rem] border-border-color mb-8 text-xl">
+        <Select
+            onValueChange={field.onChange}
+            value={field.value}
+            defaultValue={field.value}
+        >
+            <SelectTrigger className="h-14 rounded-[1.2rem] border-border-color text-xl">
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent className="bg-bg-secondary border-border-color">

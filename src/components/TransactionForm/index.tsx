@@ -1,138 +1,255 @@
 "use client";
 
-import { useState } from "react";
-import DatePickerField from "../DatePickerField";
+import { useForm, useWatch } from "react-hook-form";
+// import DatePickerField from "../DatePickerField";
 import SelectField from "../SelectField";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { Label } from "../ui/label";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+} from "@/components/ui/form";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "../ui/calendar";
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { ptBR } from "date-fns/locale/pt-BR";
+import { format } from "date-fns";
+import { useState } from "react";
+import { Label } from "@radix-ui/react-select";
 
 interface TransactionFormProps {
     isClosed: () => void;
-    onAddTransaction: (transaction: Transaction) => void
-}
-export interface Transaction {
-    title: string,
-    amount: string,
-    type: string,
-    paymentMethod: string,
-    parcel?: string,
-    category: string,
-    date: Date
 }
 
-export default function TransactionForm({ isClosed, onAddTransaction }: TransactionFormProps) {
-    const [transaction, setTransaction] = useState<Transaction>({
-        title: "",
-        amount: "",
-        type: "",
-        paymentMethod: "",
-        parcel: "",
-        category: "",
-        date: new Date(),
+export const transaction = z.object({
+    title: z.string(),
+    amount: z.string(),
+    type: z.string(),
+    paymentMethod: z.string(),
+    parcel: z.string().optional(),
+    category: z.string(),
+    date: z.date(),
+});
+
+export default function TransactionForm({ isClosed }: TransactionFormProps) {
+    const form = useForm<z.infer<typeof transaction>>({
+        resolver: zodResolver(transaction),
+        defaultValues: {
+            title: "",
+            amount: "",
+            type: "",
+            paymentMethod: "",
+            parcel: "",
+            category: "",
+            date: new Date(),
+        },
     });
 
-    const handleInputChange = (field: keyof Transaction, value: string | Date) => {
-        setTransaction(prev => ({...prev, [field]: value}))
-    }
+    const paymentMethod = useWatch({
+        control: form.control,
+        name: "paymentMethod"
+    })
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-
-        onAddTransaction(transaction)
-
-        console.log(transaction);
+    const onSubmit = (data: z.infer<typeof transaction>) => {
+        console.log(data);
 
         isClosed()
-    }
+    };
 
     return (
-        <form
-            className="w-full flex flex-col items-start px-8"
-            onSubmit={handleSubmit}
-        >
-            <Label className="text-2xl font-bold pb-2">Título</Label>
-            <Input
-                className="h-14 rounded-[1.2rem] bg-bg-secondary border-border-color mb-8 text-xl"
-                placeholder="Titulo da despesa"
-                value={transaction.title}
-                onChange={(e) => handleInputChange("title", e.target.value)}
-            />
-            <Label className="text-2xl font-bold pb-2">Valor</Label>
-            <Input
-                className="h-14 rounded-[1.2rem] bg-bg-secondary border-border-color mb-8 text-xl"
-                placeholder="R$ 0.000,00"
-                value={transaction.amount}
-                onChange={(e) => handleInputChange("amount", e.target.value)}
-            />
-            <Label className="text-2xl font-bold pb-2">Tipo de transação</Label>
-            <SelectField
-                placeholder="Selecione"
-                selectItem={["Gasto", "Deposito"]}
-                value={transaction.type}
-                onChange={(value) => handleInputChange("type", value)}
-            />
-            <Label className="text-2xl font-bold pb-2">
-                Método de pagamento
-            </Label>
-            <SelectField
-                placeholder="Selecione"
-                selectItem={["Pix", "À vista", "Cartão", "Depósito bancário"]}
-                value={transaction.paymentMethod}
-                onChange={(value) => handleInputChange("paymentMethod", value)}
-            />
-            {transaction.paymentMethod === "Cartão" && (
-                <>
-                    <Label className="text-2xl font-bold pb-2">
-                    Número de parcelas
-                    </Label>
-                    <SelectField
-                        placeholder="Selecione"
-                        selectItem={[ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" ]}
-                        value={transaction.parcel}
-                        onChange={(value) =>
-                            handleInputChange("parcel", value)
-                        }
-                    />
-                </>
-            )}
-            <Label className="text-2xl font-bold pb-2">Categoria</Label>
-            <SelectField
-                placeholder="Selecione"
-                selectItem={[
-                    "Lazer",
-                    "Alimentação",
-                    "Transporte",
-                    "Entretenimento",
-                    "Salário",
-                ]}
-                value={transaction.category}
-                onChange={(value) => handleInputChange("category", value)}
-            />
-            <Label className="text-2xl font-bold pb-2">Data</Label>
-            <DatePickerField
-                value={transaction.date}
-                onChange={(date) => {
-                    if (date) {
-                        handleInputChange("date", date)}
-                    }
-                }
-            />
-            <div className="w-full flex items-center justify-center gap-5">
-                <Button
-                    className="w-full h-14 bg-dark-gray-detail rounded-[1.2rem]"
-                    onClick={isClosed}
-                    type="button"
-                >
-                    Cancelar
-                </Button>
-                <Button
-                    className="w-full h-14 bg-green-detail rounded-[1.2rem]"
-                    type="submit"
-                >
-                    Adicionar
-                </Button>
-            </div>
-        </form>
+        <Form {...form}>
+            <form
+                className="w-full flex flex-col items-start px-8"
+                onSubmit={form.handleSubmit(onSubmit)}
+            >
+                <FormField
+                    control={form.control}
+                    name="title"
+                    render={({ field }) => (
+                        <FormItem className="w-full mb-8">
+                            <FormLabel className="text-2xl font-bold pb-2">
+                                Título
+                            </FormLabel>
+                            <FormControl>
+                                <Input
+                                    className="h-14 rounded-[1.2rem] bg-bg-secondary border-border-color text-xl"
+                                    placeholder="Titulo da despesa"
+                                    {...field }
+                                />
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="amount"
+                    render={({ field }) => (
+                        <FormItem className="w-full mb-8">
+                            <FormLabel className="text-2xl font-bold pb-2">
+                                Valor
+                            </FormLabel>
+                            <FormControl>
+                                <Input
+                                    className="h-14 rounded-[1.2rem] bg-bg-secondary border-border-color text-xl"
+                                    placeholder="R$ 0.000,00"
+                                    {...field }
+                                />
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="type"
+                    render={({ field }) => (
+                        <FormItem className="w-full mb-8">
+                            <FormLabel className="text-2xl font-bold pb-2">
+                                Tipo de transação
+                            </FormLabel>
+                            <FormControl>
+                                <SelectField
+                                    placeholder="Selecione"
+                                    selectItem={["Gasto", "Deposito"]}
+                                    name={field.name}
+                                />
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="paymentMethod"
+                    render={({ field }) => (
+                        <FormItem className="w-full mb-8">
+                            <FormLabel className="text-2xl font-bold pb-2">
+                                Método de pagamento
+                            </FormLabel>
+                            <FormControl>
+                                <SelectField
+                                    placeholder="Selecione"
+                                    selectItem={[
+                                        "Pix",
+                                        "À vista",
+                                        "Cartão",
+                                        "Depósito bancário",
+                                    ]}
+                                    name={field.name}
+                                />
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
+                {paymentMethod === "Cartão" && (
+                    <FormField
+                    control={form.control}
+                    name="parcel"
+                    render={({ field }) => (
+                        <FormItem className="w-full mb-8">
+                            <FormLabel className="text-2xl font-bold pb-2">
+                                Números de parcelas
+                            </FormLabel>
+                            <FormControl>
+                                <SelectField
+                                    placeholder="Selecione"
+                                    selectItem={[ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" ]}
+                                    name={field.name}
+                                />
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
+                )}
+                <FormField
+                    control={form.control}
+                    name="category"
+                    render={({ field }) => (
+                        <FormItem className="w-full mb-8">
+                            <FormLabel className="text-2xl font-bold pb-2">
+                                Categoria
+                            </FormLabel>
+                            <FormControl>
+                                <SelectField
+                                    placeholder="Selecione"
+                                    selectItem={[
+                                        "Lazer",
+                                        "Alimentação",
+                                        "Transporte",
+                                        "Entretenimento",
+                                        "Salário",
+                                    ]}
+                                    name={field.name}
+                                />
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="date"
+                    render={({ field }) => (
+                        <FormItem className="w-full mb-8">
+                            <FormLabel className="text-2xl font-bold pb-2">
+                                Data
+                            </FormLabel>
+                            <FormControl>
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        <Button
+                                            type="button"
+                                            variant={"outline"}
+                                            className={cn(
+                                                "w-full h-14 rounded-[1.2rem] bg-bg-secondary border-border-color text-xl justify-start text-left",
+                                                !field.value && "text-muted-foreground"
+                                            )}
+                                        >
+                                            <CalendarIcon className="mr-2 h-8 w-8" />
+                                            {field.value ? (
+                                                format(field.value, "dd/MM/yyyy")
+                                            ) : (
+                                                <span>Escolha uma data</span>
+                                            )}
+                                        </Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent
+                                        className="bg-bg-secondary border-border-color p-0"
+                                        sideOffset={8}
+                                    >
+                                        <Calendar
+                                            mode="single"
+                                            selected={field.value}
+                                            onDayClick={field.onChange}
+                                            initialFocus
+                                            locale={ptBR}
+                                            fixedWeeks
+                                        />
+                                    </PopoverContent>
+                                </Popover>
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
+                <div className="w-full flex items-center justify-center gap-5">
+                    <Button
+                        className="w-full h-14 bg-dark-gray-detail rounded-[1.2rem]"
+                        onClick={isClosed}
+                        type="button"
+                    >
+                        Cancelar
+                    </Button>
+                    <Button
+                        className="w-full h-14 bg-green-detail rounded-[1.2rem]"
+                        type="submit"
+                    >
+                        Adicionar
+                    </Button>
+                </div>
+            </form>
+        </Form>
     );
 }
