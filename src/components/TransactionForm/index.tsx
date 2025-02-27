@@ -11,6 +11,7 @@ import {
     FormField,
     FormItem,
     FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { CalendarIcon } from "lucide-react";
@@ -19,22 +20,29 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { ptBR } from "date-fns/locale/pt-BR";
-import { format } from "date-fns";
-import { useState } from "react";
-import { Label } from "@radix-ui/react-select";
+import { format, isValid } from "date-fns";
 
 interface TransactionFormProps {
-    isClosed: () => void;
+    isClosed: () => void
 }
 
 export const transaction = z.object({
-    title: z.string(),
-    amount: z.string(),
-    type: z.string(),
-    paymentMethod: z.string(),
-    parcel: z.string().optional(),
-    category: z.string(),
-    date: z.date(),
+    title: z
+        .string()
+        .min(1, { message: "Informe o título da transação" })
+        .regex(/^[a-zA-Z]/g, { message: "Título inválido" }),
+    amount: z
+        .string()
+        .min(1, { message: "Informe o valor da transação" })
+        .regex(/^[0-9]/g, { message: "Valor inválido" }),
+    type: z.string().min(1, { message: "Selecione o tipo de transação" }),
+    paymentMethod: z.string().min(1, { message: "Selecione o método de pagamento" }),
+    parcel: z.string().min(1, { message: "Selecione o número de parcelas" }),
+    category: z.string().min(1, { message: "Selecione a categoria da transação" }),
+    date: z.date({
+        required_error: "Informe a data da transação",
+        invalid_type_error: "Data inválida",
+    }),
 });
 
 export default function TransactionForm({ isClosed }: TransactionFormProps) {
@@ -47,9 +55,10 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
             paymentMethod: "",
             parcel: "",
             category: "",
-            date: new Date(),
+            date: undefined,
         },
-    });
+        mode: "all"
+    })
 
     const paymentMethod = useWatch({
         control: form.control,
@@ -60,7 +69,7 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
         console.log(data);
 
         isClosed()
-    };
+    }
 
     return (
         <Form {...form}>
@@ -78,11 +87,13 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                             </FormLabel>
                             <FormControl>
                                 <Input
-                                    className="h-14 rounded-[1.2rem] bg-bg-secondary border-border-color text-xl"
+                                    className="h-14 rounded-[1.2rem] bg-bg-secondary border-border-color"
                                     placeholder="Titulo da despesa"
-                                    {...field }
+                                    style={{ fontSize: "1.25rem" }}
+                                    {...field}
                                 />
                             </FormControl>
+                            <FormMessage className="text-expense-color mt-2 text-xl" />
                         </FormItem>
                     )}
                 />
@@ -96,11 +107,13 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                             </FormLabel>
                             <FormControl>
                                 <Input
-                                    className="h-14 rounded-[1.2rem] bg-bg-secondary border-border-color text-xl"
+                                    className="h-14 rounded-[1.2rem] bg-bg-secondary border-border-color"
                                     placeholder="R$ 0.000,00"
-                                    {...field }
+                                    style={{ fontSize: "1.25rem" }}
+                                    {...field}
                                 />
                             </FormControl>
+                            <FormMessage className="text-expense-color mt-2 text-xl" />
                         </FormItem>
                     )}
                 />
@@ -119,6 +132,7 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                                     name={field.name}
                                 />
                             </FormControl>
+                            <FormMessage className="text-expense-color mt-2 text-xl" />
                         </FormItem>
                     )}
                 />
@@ -142,28 +156,43 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                                     name={field.name}
                                 />
                             </FormControl>
+                            <FormMessage className="text-expense-color mt-2 text-xl" />
                         </FormItem>
                     )}
                 />
                 {paymentMethod === "Cartão" && (
                     <FormField
-                    control={form.control}
-                    name="parcel"
-                    render={({ field }) => (
-                        <FormItem className="w-full mb-8">
-                            <FormLabel className="text-2xl font-bold pb-2">
-                                Números de parcelas
-                            </FormLabel>
-                            <FormControl>
-                                <SelectField
-                                    placeholder="Selecione"
-                                    selectItem={[ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" ]}
-                                    name={field.name}
-                                />
-                            </FormControl>
-                        </FormItem>
-                    )}
-                />
+                        control={form.control}
+                        name="parcel"
+                        render={({ field }) => (
+                            <FormItem className="w-full mb-8">
+                                <FormLabel className="text-2xl font-bold pb-2">
+                                    Números de parcelas
+                                </FormLabel>
+                                <FormControl>
+                                    <SelectField
+                                        placeholder="Selecione"
+                                        selectItem={[
+                                            "1",
+                                            "2",
+                                            "3",
+                                            "4",
+                                            "5",
+                                            "6",
+                                            "7",
+                                            "8",
+                                            "9",
+                                            "10",
+                                            "11",
+                                            "12",
+                                        ]}
+                                        name={field.name}
+                                    />
+                                </FormControl>
+                                <FormMessage className="text-expense-color mt-2 text-xl" />
+                            </FormItem>
+                        )}
+                    />
                 )}
                 <FormField
                     control={form.control}
@@ -186,6 +215,7 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                                     name={field.name}
                                 />
                             </FormControl>
+                            <FormMessage className="text-expense-color mt-2 text-xl" />
                         </FormItem>
                     )}
                 />
@@ -205,12 +235,16 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                                             variant={"outline"}
                                             className={cn(
                                                 "w-full h-14 rounded-[1.2rem] bg-bg-secondary border-border-color text-xl justify-start text-left",
-                                                !field.value && "text-muted-foreground"
+                                                !field.value &&
+                                                    "text-muted-foreground"
                                             )}
                                         >
                                             <CalendarIcon className="mr-2 h-8 w-8" />
                                             {field.value ? (
-                                                format(field.value, "dd/MM/yyyy")
+                                                format(
+                                                    field.value,
+                                                    "dd/MM/yyyy"
+                                                )
                                             ) : (
                                                 <span>Escolha uma data</span>
                                             )}
@@ -223,7 +257,11 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                                         <Calendar
                                             mode="single"
                                             selected={field.value}
-                                            onDayClick={field.onChange}
+                                            onSelect={(date) => {
+                                                field.onChange(date);
+
+                                                form.trigger("date");
+                                            }}
                                             initialFocus
                                             locale={ptBR}
                                             fixedWeeks
@@ -231,6 +269,7 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                                     </PopoverContent>
                                 </Popover>
                             </FormControl>
+                            <FormMessage className="text-expense-color mt-2 text-xl" />
                         </FormItem>
                     )}
                 />
