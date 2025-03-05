@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { ptBR } from "date-fns/locale/pt-BR";
-import { format, isValid } from "date-fns";
+import { format } from "date-fns";
 
 interface TransactionFormProps {
     isClosed: () => void
