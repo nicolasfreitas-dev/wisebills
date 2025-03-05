@@ -8,17 +8,18 @@ import Header from "@/components/Header"
 import Modal from "@/components/Modal"
 import { ArrowUpDown, TrendingDown, Wallet } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Transaction } from "@/components/TransactionForm"
+import { transaction } from "@/components/TransactionForm"
+import { z } from "zod"
 
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [transactions, setTransactions] = useState<Transaction[]>([])
+    const [transactions, setTransactions] = useState<z.infer<typeof transaction>[]>([])
 
     const handleModalOpen = () => {
         setIsModalOpen(true)
     }
 
-    const handleAddTransaction = (newTransaction: Transaction) => {
+    const handleAddTransaction = (newTransaction: z.infer<typeof transaction>) => {
         setTransactions(prev => ([...prev, newTransaction]))
     }
 

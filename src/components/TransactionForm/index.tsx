@@ -1,7 +1,6 @@
 "use client";
 
 import { useForm, useWatch } from "react-hook-form";
-// import DatePickerField from "../DatePickerField";
 import SelectField from "../SelectField";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -24,6 +23,7 @@ import { format } from "date-fns";
 
 interface TransactionFormProps {
     isClosed: () => void
+    onAddTransaction: (transactions: z.infer<typeof transaction>) => void
 }
 
 export const transaction = z.object({
@@ -32,29 +32,41 @@ export const transaction = z.object({
         .min(1, { message: "Informe o título da transação" })
         .regex(/^[a-zA-Z]/g, { message: "Título inválido" }),
     amount: z
-        .string()
+        .string() 
         .min(1, { message: "Informe o valor da transação" })
         .regex(/^[0-9]/g, { message: "Valor inválido" }),
-    type: z.string().min(1, { message: "Selecione o tipo de transação" }),
-    paymentMethod: z.string().min(1, { message: "Selecione o método de pagamento" }),
-    parcel: z.string().min(1, { message: "Selecione o número de parcelas" }),
-    category: z.string().min(1, { message: "Selecione a categoria da transação" }),
+    type: z.string({
+        required_error: "Informe o tipo de transação",
+        invalid_type_error: "Tipo de transação inválida",
+    }),
+    paymentMethod: z.string({
+        required_error: "Informe o método de pagamento",
+        invalid_type_error: "Método de pagamento inválido",
+    }),
+    parcel: z.string({
+        required_error: "Informe o número de parcelas",
+        invalid_type_error: "Número de parcelas inválido",
+    }),
+    category: z.string({
+        required_error: "Informe a categoria da transação",
+        invalid_type_error: "Categoria inválida",
+    }),
     date: z.date({
         required_error: "Informe a data da transação",
         invalid_type_error: "Data inválida",
     }),
-});
+})
 
-export default function TransactionForm({ isClosed }: TransactionFormProps) {
+export default function TransactionForm({ isClosed, onAddTransaction }: TransactionFormProps) {
     const form = useForm<z.infer<typeof transaction>>({
         resolver: zodResolver(transaction),
         defaultValues: {
             title: "",
             amount: "",
-            type: "",
-            paymentMethod: "",
-            parcel: "",
-            category: "",
+            type: undefined,
+            paymentMethod: undefined,
+            parcel: undefined,
+            category: undefined,
             date: undefined,
         },
         mode: "all"
@@ -66,7 +78,9 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
     })
 
     const onSubmit = (data: z.infer<typeof transaction>) => {
-        console.log(data);
+        console.log(data)
+
+        onAddTransaction(data)
 
         isClosed()
     }

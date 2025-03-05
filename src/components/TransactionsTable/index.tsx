@@ -1,8 +1,9 @@
-import { Transaction } from "../TransactionForm"
 import { Table, TableBody, TableCell, TableRow } from "../ui/table"
+import { transaction } from "../TransactionForm"
+import { z } from "zod";
 
 interface TransactionTableProps {
-    transactions: Transaction[]
+    transactions: z.infer<typeof transaction>[];
 }
 
 export default function TransactionsTable({ transactions }: TransactionTableProps) {

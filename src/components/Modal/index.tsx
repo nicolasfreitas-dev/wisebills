@@ -1,9 +1,10 @@
 import { X } from "lucide-react";
-import TransactionForm, { Transaction } from "../TransactionForm"
+import TransactionForm, { transaction } from "../TransactionForm"
+import { z } from "zod";
 interface ModalProps {
     isOpen: boolean
     isClosed: () => void
-    onAddTransaction: (transaction: Transaction) => void
+    onAddTransaction: (transactions: z.infer<typeof transaction>) => void
 }
 
 export default function Modal({ isOpen, isClosed, onAddTransaction }: ModalProps) {
