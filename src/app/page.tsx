@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import TransactionsTable from "@/components/TransactionsTable"
-import ValueContainer from "@/components/ValueContainer"
+import AmountContainer from "@/components/AmountContainer"
 import Footer from "@/components/Footer"
 import Header from "@/components/Header"
 import Modal from "@/components/Modal"
@@ -52,7 +52,7 @@ export default function Home() {
             <Header />
             <main className="mx-10 pb-32">
                 <h1 className="font-bold text-3xl mt-10">Dashboard</h1>
-                <ValueContainer background="bg-bg-cash">
+                <AmountContainer background="bg-bg-cash">
                     <div className="flex items-center gap-3 ml-6 mt-5">
                         <div className="size-14 flex items-center justify-center bg-bg-primary rounded-xl">
                             <Wallet />
@@ -69,8 +69,8 @@ export default function Home() {
                         <span>Adicionar transação</span>
                         <ArrowUpDown />
                     </Button>
-                </ValueContainer>
-                <ValueContainer>
+                </AmountContainer>
+                <AmountContainer>
                     <div className="flex items-center gap-3 ml-6 mt-7">
                         <div className="size-14 flex items-center justify-center bg-bg-expense-color rounded-xl">
                             <TrendingDown className="text-expense-color" />
@@ -80,7 +80,7 @@ export default function Home() {
                     <span className="font-bold text-4xl ml-6 mt-7">
                         {`R$ ${expenses.toFixed(2)}`}
                     </span>
-                </ValueContainer>
+                </AmountContainer>
                 <div className="size-full border border-border-color rounded-[20px] flex flex-col mt-4 px-8">
                     <div className="h-32 flex items-center justify-between">
                         <h3 className="text-3xl font-bold">Transações</h3>
