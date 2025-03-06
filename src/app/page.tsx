@@ -32,11 +32,9 @@ export default function Home() {
 
             if (transaction.type === "Depósito") {
                 balance += amount
-            }
-
-            if (transaction.type === "Gasto") {
-                balance -= amount;
-                expenses += amount;
+            } else {
+                balance -= amount
+                expenses += amount
             }
 
             if (transaction.type === "Gasto" && balance < 0) {
