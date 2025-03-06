@@ -29,7 +29,7 @@ export default function TransactionsTable({ transactions }: TransactionTableProp
                                 </span>
                                 <span>
                                     {transaction.paymentMethod === "Cartão"
-                                        ? `Parcela X de ${transaction.parcel}`
+                                        ? `Parcela 1 de ${transaction.parcel}`
                                         : transaction.paymentMethod}
                                 </span>
                             </TableCell>

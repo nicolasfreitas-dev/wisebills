@@ -35,22 +35,10 @@ export const transaction = z.object({
         .string() 
         .min(1, { message: "Informe o valor da transação" })
         .regex(/^[0-9]/g, { message: "Valor inválido" }),
-    type: z.string({
-        required_error: "Informe o tipo de transação",
-        invalid_type_error: "Tipo de transação inválida",
-    }),
-    paymentMethod: z.string({
-        required_error: "Informe o método de pagamento",
-        invalid_type_error: "Método de pagamento inválido",
-    }),
-    parcel: z.string({
-        required_error: "Informe o número de parcelas",
-        invalid_type_error: "Número de parcelas inválido",
-    }),
-    category: z.string({
-        required_error: "Informe a categoria da transação",
-        invalid_type_error: "Categoria inválida",
-    }),
+    type: z.string(),
+    paymentMethod: z.string(),
+    parcel: z.string(),
+    category: z.string(),
     date: z.date({
         required_error: "Informe a data da transação",
         invalid_type_error: "Data inválida",
@@ -63,10 +51,10 @@ export default function TransactionForm({ isClosed, onAddTransaction }: Transact
         defaultValues: {
             title: "",
             amount: "",
-            type: undefined,
-            paymentMethod: undefined,
-            parcel: undefined,
-            category: undefined,
+            type: "",
+            paymentMethod: "",
+            parcel: "",
+            category: "",
             date: undefined,
         },
         mode: "all"
@@ -142,7 +130,7 @@ export default function TransactionForm({ isClosed, onAddTransaction }: Transact
                             <FormControl>
                                 <SelectField
                                     placeholder="Selecione"
-                                    selectItem={["Gasto", "Deposito"]}
+                                    selectItem={["Gasto", "Depósito"]}
                                     name={field.name}
                                 />
                             </FormControl>

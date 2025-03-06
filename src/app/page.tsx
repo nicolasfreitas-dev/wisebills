@@ -30,18 +30,17 @@ export default function Home() {
         transactions.forEach((transaction) => {
             const amount = parseFloat(transaction.amount.replace(/[^0-9,-]/g, "").replace(",", "."))
 
-            if (transaction.type === "Deposito") {
+            if (transaction.type === "Depósito") {
                 balance += amount
-                
-            } 
+            }
 
             if (transaction.type === "Gasto") {
-                expenses += amount
-                
-            } else if (balance < 0) {
-                return;
-            } else {
-                balance -= amount
+                balance -= amount;
+                expenses += amount;
+            }
+
+            if (transaction.type === "Gasto" && balance < 0) {
+                balance = 0
             }
         })
 
