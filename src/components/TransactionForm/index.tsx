@@ -26,26 +26,46 @@ interface TransactionFormProps {
     onAddTransaction: (transactions: z.infer<typeof transaction>) => void
 }
 
-export const transaction = z.object({
-    title: z
-        .string()
-        .min(1, { message: "Informe o título da transação" })
-        .regex(/^[a-zA-Z]/g, { message: "Título inválido" }),
-    amount: z
-        .string() 
-        .min(1, { message: "Informe o valor da transação" })
-        .regex(/^[0-9]/g, { message: "Valor inválido" }),
-    type: z.string(),
-    paymentMethod: z.string(),
-    parcel: z.string(),
-    category: z.string(),
-    date: z.date({
-        required_error: "Informe a data da transação",
-        invalid_type_error: "Data inválida",
-    }),
-})
+export const transaction = z
+    .object({
+        title: z
+            .string()
+            .min(1, { message: "Informe o título da transação" })
+            .regex(/^[a-zA-Z]/g, { message: "Título inválido" }),
+        amount: z
+            .string()
+            .min(1, { message: "Informe o valor da transação" })
+            .regex(/^[0-9]/g, { message: "Valor inválido" }),
+        type: z.string().min(1, { message: "Selecione o tipo da transação" }),
+        paymentMethod: z
+            .string()
+            .min(1, { message: "Selecione o método de pagamento" }),
+        parcel: z.string().optional(),
+        category: z
+            .string()
+            .min(1, { message: "Selecione a categoria da transação" }),
+        date: z.date({
+            required_error: "Informe a data da transação",
+            invalid_type_error: "Data inválida",
+        }),
+    })
+    .superRefine((data, ctx) => {
+        if (
+            data.paymentMethod === "Cartão" &&
+            (!data.parcel || data.parcel.length === 0)
+        ) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: "Selecione o número de parcelas",
+                path: ["parcel"],
+            });
+        }
+    })
 
-export default function TransactionForm({ isClosed, onAddTransaction }: TransactionFormProps) {
+export default function TransactionForm({
+    isClosed,
+    onAddTransaction,
+}: TransactionFormProps) {
     const form = useForm<z.infer<typeof transaction>>({
         resolver: zodResolver(transaction),
         defaultValues: {
@@ -53,25 +73,25 @@ export default function TransactionForm({ isClosed, onAddTransaction }: Transact
             amount: "",
             type: "",
             paymentMethod: "",
-            parcel: "",
+            parcel: undefined,
             category: "",
             date: undefined,
         },
-        mode: "all"
-    })
+        mode: "all",
+    });
 
     const paymentMethod = useWatch({
         control: form.control,
-        name: "paymentMethod"
-    })
+        name: "paymentMethod",
+    });
 
     const onSubmit = (data: z.infer<typeof transaction>) => {
-        console.log(data)
+        console.log(data);
 
-        onAddTransaction(data)
+        onAddTransaction(data);
 
-        isClosed()
-    }
+        isClosed();
+    };
 
     return (
         <Form {...form}>
@@ -132,6 +152,11 @@ export default function TransactionForm({ isClosed, onAddTransaction }: Transact
                                     placeholder="Selecione"
                                     selectItem={["Gasto", "Depósito"]}
                                     name={field.name}
+                                    value={field.value}
+                                    onChange={(value) => {
+                                        field.onChange(value);
+                                        form.trigger("type");
+                                    }}
                                 />
                             </FormControl>
                             <FormMessage className="text-expense-color mt-2 text-xl" />
@@ -156,6 +181,11 @@ export default function TransactionForm({ isClosed, onAddTransaction }: Transact
                                         "Depósito bancário",
                                     ]}
                                     name={field.name}
+                                    value={field.value}
+                                    onChange={(value) => {
+                                        field.onChange(value);
+                                        form.trigger("paymentMethod");
+                                    }}
                                 />
                             </FormControl>
                             <FormMessage className="text-expense-color mt-2 text-xl" />
@@ -189,6 +219,11 @@ export default function TransactionForm({ isClosed, onAddTransaction }: Transact
                                             "12",
                                         ]}
                                         name={field.name}
+                                        value={field.value}
+                                        onChange={(value) => {
+                                            field.onChange(value);
+                                            form.trigger("parcel");
+                                        }}
                                     />
                                 </FormControl>
                                 <FormMessage className="text-expense-color mt-2 text-xl" />
@@ -215,6 +250,11 @@ export default function TransactionForm({ isClosed, onAddTransaction }: Transact
                                         "Salário",
                                     ]}
                                     name={field.name}
+                                    value={field.value}
+                                    onChange={(value) => {
+                                        field.onChange(value);
+                                        form.trigger("category");
+                                    }}
                                 />
                             </FormControl>
                             <FormMessage className="text-expense-color mt-2 text-xl" />
