@@ -62,6 +62,8 @@ export default function Home() {
 
     const { balance, expenses } = calculateBalance();
 
+    const windowSize = window.innerWidth
+
     return (
         <>
             <Header />
@@ -81,7 +83,7 @@ export default function Home() {
                             <EyeIcon />
                         </div>
                         <Button
-                            className={`bg-green-detail mt-3 rounded-[20px] px-8 py-6 text-xl ${window.innerWidth < 768 ? "hidden" : ""}`}
+                            className={`bg-green-detail mt-3 rounded-[20px] px-8 py-6 text-xl ${windowSize < 768 ? "hidden" : ""}`}
                             onClick={handleModalOpen}
                         >
                             <span>Adicionar transação</span>
