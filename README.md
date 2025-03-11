@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-     <a href="https://wisebills.vercel.app/" target="_blank">Visite este Projeto</a>
+     <a href="https://wisebills-coral.vercel.app/" target="_blank">Visite este Projeto</a>
 </p>
 
 <h4 align="center">🚧 Projeto em construção...  🚧</h4>
