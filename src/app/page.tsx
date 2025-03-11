@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TransactionsTable from "@/components/TransactionsTable";
 import AmountContainer from "@/components/AmountContainer";
 import Header from "@/components/Header";
@@ -21,10 +21,9 @@ import { z } from "zod";
 import Navbar from "@/components/Navbar";
 
 export default function Home() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [transactions, setTransactions] = useState<
-        z.infer<typeof transaction>[]
-    >([]);
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [transactions, setTransactions] = useState<z.infer<typeof transaction>[]>([])
+    const [windowSize, setWindowSize] = useState(0)
 
     const handleModalOpen = () => {
         setIsModalOpen(true);
@@ -62,7 +61,20 @@ export default function Home() {
 
     const { balance, expenses } = calculateBalance();
 
-    const windowSize = window.innerWidth
+    useEffect(() => {
+        setWindowSize(window.innerWidth)
+
+        const handleResize = () => {
+            setWindowSize(window.innerWidth)
+        }
+
+        window.addEventListener('resize', handleResize)
+
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+        
+    }, [])
 
     return (
         <>

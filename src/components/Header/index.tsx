@@ -1,8 +1,26 @@
+'use client'
+
 import { CircleUserRound } from "lucide-react";
 import Navbar from "../Navbar";
+import { useState, useEffect } from "react";
 
 export default function Header() {
-    const windowSize = window.innerWidth
+        const [windowSize, setWindowSize] = useState(0)
+    
+        useEffect(() => {
+            setWindowSize(window.innerWidth)
+    
+            const handleResize = () => {
+                setWindowSize(window.innerWidth)
+            }
+    
+            window.addEventListener('resize', handleResize)
+    
+            return () => {
+                window.removeEventListener('resize', handleResize)
+            }
+            
+        }, [])
 
     return (
         <header className="w-full h-24 flex items-center justify-between gap-4 border-b-[1px] border-b-border-color px-10">
