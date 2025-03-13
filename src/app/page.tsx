@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TransactionsTable from "@/components/TransactionsTable";
 import AmountContainer from "@/components/AmountContainer";
 import Header from "@/components/Header";
