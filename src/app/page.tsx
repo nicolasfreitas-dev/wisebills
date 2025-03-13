@@ -19,11 +19,12 @@ import { Button } from "@/components/ui/button";
 import { transaction } from "@/components/TransactionForm";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";
+import { useResize } from "@/hooks/useResize";
 
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [transactions, setTransactions] = useState<z.infer<typeof transaction>[]>([])
-    const [windowSize, setWindowSize] = useState(0)
+    const { windowSize } = useResize()
 
     const handleModalOpen = () => {
         setIsModalOpen(true);
@@ -60,21 +61,6 @@ export default function Home() {
     };
 
     const { balance, expenses } = calculateBalance();
-
-    useEffect(() => {
-        setWindowSize(window.innerWidth)
-
-        const handleResize = () => {
-            setWindowSize(window.innerWidth)
-        }
-
-        window.addEventListener('resize', handleResize)
-
-        return () => {
-            window.removeEventListener('resize', handleResize)
-        }
-        
-    }, [])
 
     return (
         <>
