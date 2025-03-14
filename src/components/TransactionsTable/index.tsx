@@ -1,6 +1,8 @@
 import { Table, TableBody, TableCell, TableRow } from "../ui/table"
 import { transaction } from "../TransactionForm"
 import { z } from "zod";
+import { Checkbox } from "../ui/checkbox";
+import { useState } from "react";
 
 interface TransactionTableProps {
     transactions: z.infer<typeof transaction>[];
@@ -42,7 +44,8 @@ export default function TransactionsTable({ transactions }: TransactionTableProp
                             >
                                 {`R$ ${parseFloat(transaction.amount).toFixed(2)}`}
                             </TableCell>
-                            <TableCell></TableCell>
+                            <TableCell>
+                            </TableCell>
                         </TableRow>
                     );
                 })

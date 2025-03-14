@@ -10,6 +10,7 @@ import {
     ChartColumnIcon,
     CheckIcon,
     EyeIcon,
+    EyeClosedIcon,
     HouseIcon,
     PlusIcon,
     TrendingDown,
@@ -24,40 +25,49 @@ import { useResize } from "@/hooks/useResize";
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [transactions, setTransactions] = useState<z.infer<typeof transaction>[]>([])
+    const [hideAmount, setHideAmount] = useState(false)
     const { windowSize } = useResize()
 
     const handleModalOpen = () => {
         setIsModalOpen(true);
-    };
+    }
 
     const handleAddTransaction = (
         newTransaction: z.infer<typeof transaction>
     ) => {
         setTransactions((prev) => [...prev, newTransaction]);
-    };
+    }
+
+    const handleHideAmount = () => {
+        if (hideAmount) {
+            setHideAmount(false)
+        } else {
+            setHideAmount(true)
+        }
+    }
 
     const calculateBalance = () => {
-        let balance = 0;
-        let expenses = 0;
+        let balance = 0
+        let expenses = 0
 
         transactions.forEach((transaction) => {
             const amount = parseFloat(
                 transaction.amount.replace(/[^0-9,-]/g, "").replace(",", ".")
-            );
+            )
 
             if (transaction.type === "Depósito") {
-                balance += amount;
+                balance += amount
             } else {
-                balance -= amount;
-                expenses += amount;
+                balance -= amount
+                expenses += amount
             }
 
             if (transaction.type === "Gasto" && balance < 0) {
-                balance = 0;
+                balance = 0
             }
-        });
+        })
 
-        return { balance, expenses };
+        return { balance, expenses }
     };
 
     const { balance, expenses } = calculateBalance();
@@ -76,9 +86,13 @@ export default function Home() {
                     <div className="w-full flex items-center justify-between">
                         <div className="flex items-center gap-5">
                             <span className="font-bold text-4xl">
-                                {`R$ ${balance.toFixed(2)}`}
+                                {hideAmount ? "R$ " + balance.toFixed(2) : "R$ ••••"}
                             </span>
-                            <EyeIcon />
+                            {
+                                hideAmount 
+                                ? <EyeIcon className="cursor-pointer" onClick={handleHideAmount} />
+                                : <EyeClosedIcon className="cursor-pointer" onClick={handleHideAmount} />
+                            }
                         </div>
                         <Button
                             className={`bg-green-detail mt-3 rounded-[20px] px-8 py-6 text-xl ${windowSize < 768 ? "hidden" : ""}`}
