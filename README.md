@@ -44,7 +44,7 @@ Para rodar este projeto na sua máquina será necessária que tenha instalado No
 Como clonar o projeto na sua máquina
 
 ```bash
-git clone https://github.com/nicolasfreitas-dev/sobra-cash.git
+git clone https://github.com/nicolasfreitas-dev/wisebills.git
 ```
 
 <h3>Instalando dependências</h3>
@@ -56,6 +56,6 @@ npm install
 <h3>Iniciando o projeto</h3>
 
 ```
-cd sobra-cash
+cd wisebills
 npm run dev
 ```
