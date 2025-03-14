@@ -150,7 +150,7 @@ export default function TransactionForm({
                             <FormControl>
                                 <SelectField
                                     placeholder="Selecione"
-                                    selectItem={["Gasto", "Depósito"]}
+                                    selectItem={["Gasto", "Depósito", "Reserva"]}
                                     name={field.name}
                                     value={field.value}
                                     onChange={(value) => {
