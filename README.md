@@ -17,7 +17,7 @@
 
 <h2 id="layout">🎨 Layout</h2>
 
-![image](https://github.com/user-attachments/assets/7718bf8a-3321-4e1e-afd1-dba4e0f72b17)
+![image](https://github.com/user-attachments/assets/5d7321d0-dbe2-4215-82e4-120844f57774)
 
 
 <h2 id="tech">💻 Tecnologias</h2>
