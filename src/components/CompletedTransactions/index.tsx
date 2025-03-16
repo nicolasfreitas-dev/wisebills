@@ -67,7 +67,7 @@ export default function CompletedTransactions() {
                 {completedTransactions.length === 0 && (
                     <TableRow>
                         <TableCell className="text-xl text-center col-span-3 py-4">
-                            Nenhuma transação pendente
+                            Nenhuma transação concluída
                         </TableCell>
                     </TableRow>
                 )}
