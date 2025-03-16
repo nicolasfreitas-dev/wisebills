@@ -84,7 +84,7 @@ export default function Home() {
                         <Expenses expenses={expenses} />
                     </div>
                 </div>
-                <div className="md:w-[40%] flex flex-col mt-2">
+                <div className="md:w-[40%] md:h-screen flex flex-col mt-2">
                     <TransactionContainer title="Transações Pendentes">
                         <PendingTransaction />
                     </TransactionContainer>
