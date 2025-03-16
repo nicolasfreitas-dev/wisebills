@@ -20,14 +20,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { ptBR } from "date-fns/locale/pt-BR";
 import { format } from "date-fns";
+import { useTransactionStore } from "@/store/transactions";
 
 interface TransactionFormProps {
     isClosed: () => void
-    onAddTransaction: (transactions: z.infer<typeof transaction>) => void
 }
 
 export const transaction = z
     .object({
+        id: z.number(),
         title: z
             .string()
             .min(1, { message: "Informe o título da transação" })
@@ -62,13 +63,15 @@ export const transaction = z
         }
     })
 
-export default function TransactionForm({
-    isClosed,
-    onAddTransaction,
-}: TransactionFormProps) {
+export default function TransactionForm({ isClosed }: TransactionFormProps) {
+    const { addTransaction } = useTransactionStore()
+
+    const randomID = Math.floor(Math.random() * 1000)
+
     const form = useForm<z.infer<typeof transaction>>({
         resolver: zodResolver(transaction),
         defaultValues: {
+            id: randomID,
             title: "",
             amount: "",
             type: "",
@@ -86,9 +89,7 @@ export default function TransactionForm({
     });
 
     const onSubmit = (data: z.infer<typeof transaction>) => {
-        console.log(data);
-
-        onAddTransaction(data);
+        addTransaction(data);
 
         isClosed();
     };

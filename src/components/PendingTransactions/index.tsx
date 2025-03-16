@@ -1,15 +1,10 @@
 import { Table, TableBody, TableCell, TableRow } from "../ui/table"
-import { transaction } from "../TransactionForm"
-import { z } from "zod";
 import { Checkbox } from "../ui/checkbox";
 import { Edit } from "lucide-react";
+import { useTransactionStore } from "@/store/transactions";
 
-interface PendingTransaction {
-    transactions: z.infer<typeof transaction>[];
-}
-
-export default function PendingTransaction({ transactions }: PendingTransaction) {
-    
+export default function PendingTransaction() {
+    const { transactions, markAsCompleted } = useTransactionStore()
 
     return (
         <Table>
@@ -25,8 +20,7 @@ export default function PendingTransaction({ transactions }: PendingTransaction)
                                     .toLocaleDateString("pt-BR")
                                     .split("/")
                                     .slice(0, 2)
-                                    .join("/")
-                                }
+                                    .join("/")}
                             </TableCell>
                             <TableCell className="w-full max-w-[12rem] flex flex-col items-start justify-start text-lg">
                                 <span className="font-bold">
@@ -45,10 +39,12 @@ export default function PendingTransaction({ transactions }: PendingTransaction)
                                         : "text-green-detail"
                                 }`}
                             >
-                                {`R$ ${parseFloat(transaction.amount).toFixed(2)}`}
+                                {`R$ ${parseFloat(transaction.amount).toFixed(
+                                    2
+                                )}`}
                             </TableCell>
                             <TableCell className="flex items-center gap-5">
-                                <Checkbox />
+                                <Checkbox onClick={() => markAsCompleted(transaction.id)} />
                                 <Edit className="size-6 cursor-pointer" />
                             </TableCell>
                         </TableRow>

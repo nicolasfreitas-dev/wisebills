@@ -9,8 +9,7 @@ import {
     HouseIcon,
     PlusIcon,
 } from "lucide-react";
-import { transaction } from "@/components/TransactionForm";
-import { z } from "zod";
+// import { z } from "zod";
 import Navbar from "@/components/Navbar";
 import { useResize } from "@/hooks/useResize";
 import Amount from "@/components/Amount";
@@ -19,21 +18,16 @@ import Reserved from "@/components/Reserved";
 import PendingTransaction from '../components/PendingTransactions/index';
 import TransactionContainer from "@/components/TransactionsContainer";
 import CompletedTransactions from "@/components/CompletedTransactions";
+import { useTransactionStore } from "@/store/transactions";
 
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [transactions, setTransactions] = useState<z.infer<typeof transaction>[]>([])
     const [hideAmount, setHideAmount] = useState(false)
+    const { transactions } = useTransactionStore()
     const { windowSize } = useResize()
 
     const handleModalOpen = () => {
         setIsModalOpen(true);
-    }
-
-    const handleAddTransaction = (
-        newTransaction: z.infer<typeof transaction>
-    ) => {
-        setTransactions((prev) => [...prev, newTransaction]);
     }
 
     const handleHideAmount = () => {
@@ -90,9 +84,9 @@ export default function Home() {
                         <Expenses expenses={expenses} />
                     </div>
                 </div>
-                <div className="md:w-[40%] flex flex-col">
+                <div className="md:w-[40%] flex flex-col mt-2">
                     <TransactionContainer title="Transações Pendentes">
-                        <PendingTransaction transactions={transactions} />
+                        <PendingTransaction />
                     </TransactionContainer>
                     <TransactionContainer title="Transações Concluídas">
                         <CompletedTransactions />
@@ -101,7 +95,6 @@ export default function Home() {
                 <Modal
                     isOpen={isModalOpen}
                     isClosed={() => setIsModalOpen(false)}
-                    onAddTransaction={handleAddTransaction}
                 />
                 <Navbar>
                     <nav className="md:hidden w-full h-24 fixed bottom-0 left-0 flex items-center justify-evenly list-none border-t-[1px] border-t-border-color">
