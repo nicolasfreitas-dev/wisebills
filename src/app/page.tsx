@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from "react";
-import TransactionsTable from "@/components/TransactionsTable";
 import Header from "@/components/Header";
 import Modal from "@/components/Modal";
 import {
@@ -17,6 +16,9 @@ import { useResize } from "@/hooks/useResize";
 import Amount from "@/components/Amount";
 import Expenses from "@/components/Expenses";
 import Reserved from "@/components/Reserved";
+import PendingTransaction from '../components/PendingTransactions/index';
+import TransactionContainer from "@/components/TransactionsContainer";
+import CompletedTransactions from "@/components/CompletedTransactions";
 
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -74,28 +76,27 @@ export default function Home() {
     return (
         <>
             <Header />
-            <main className="md:flex md:gap-10 px-10 pb-32">
+            <main className="md:flex md:gap-10 px-10 pb-5">
                 <div className="md:w-[60%] md:flex md:flex-col md:gap-4">
-                    <Amount balance={balance} windowSize={windowSize} hideAmount={hideAmount} handleHideAmount={handleHideAmount} handleModalOpen={handleModalOpen} />
+                    <Amount
+                        balance={balance}
+                        windowSize={windowSize}
+                        hideAmount={hideAmount}
+                        handleHideAmount={handleHideAmount}
+                        handleModalOpen={handleModalOpen}
+                    />
                     <div className="md:flex md:gap-10">
-                        <Reserved reserved={reserved}  />
+                        <Reserved reserved={reserved} />
                         <Expenses expenses={expenses} />
                     </div>
                 </div>
-                <div className="w-full md:w-[40%] border border-border-color rounded-[20px] flex flex-col mt-4 px-8">
-                    <div className="h-32 flex items-center justify-between">
-                        <h3 className="text-3xl font-bold">Transações</h3>
-                        <span className="text-xl font-bold cursor-pointer">
-                            Ver mais
-                        </span>
-                    </div>
-                    <hr className="border-border-color" />
-                    <div>
-                        <h4 className="text-2xl font-bold mt-7 mb-5">
-                            Pendentes
-                        </h4>
-                        <TransactionsTable transactions={transactions} />
-                    </div>
+                <div className="md:w-[40%] flex flex-col">
+                    <TransactionContainer title="Transações Pendentes">
+                        <PendingTransaction transactions={transactions} />
+                    </TransactionContainer>
+                    <TransactionContainer title="Transações Concluídas">
+                        <CompletedTransactions />
+                    </TransactionContainer>
                 </div>
                 <Modal
                     isOpen={isModalOpen}

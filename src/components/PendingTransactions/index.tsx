@@ -1,12 +1,16 @@
 import { Table, TableBody, TableCell, TableRow } from "../ui/table"
 import { transaction } from "../TransactionForm"
 import { z } from "zod";
+import { Checkbox } from "../ui/checkbox";
+import { Edit } from "lucide-react";
 
-interface TransactionTableProps {
+interface PendingTransaction {
     transactions: z.infer<typeof transaction>[];
 }
 
-export default function TransactionsTable({ transactions }: TransactionTableProps) {
+export default function PendingTransaction({ transactions }: PendingTransaction) {
+    
+
     return (
         <Table>
             <TableBody>
@@ -21,7 +25,8 @@ export default function TransactionsTable({ transactions }: TransactionTableProp
                                     .toLocaleDateString("pt-BR")
                                     .split("/")
                                     .slice(0, 2)
-                                    .join("/")}
+                                    .join("/")
+                                }
                             </TableCell>
                             <TableCell className="w-full max-w-[12rem] flex flex-col items-start justify-start text-lg">
                                 <span className="font-bold">
@@ -42,7 +47,9 @@ export default function TransactionsTable({ transactions }: TransactionTableProp
                             >
                                 {`R$ ${parseFloat(transaction.amount).toFixed(2)}`}
                             </TableCell>
-                            <TableCell>
+                            <TableCell className="flex items-center gap-5">
+                                <Checkbox />
+                                <Edit className="size-6 cursor-pointer" />
                             </TableCell>
                         </TableRow>
                     );
