@@ -6,7 +6,7 @@ import { useTransactionStore } from "@/store/transactions";
 export default function CompletedTransactions() {
     const { completedTransactions } = useTransactionStore()
 
-    const formatDate = (dateValue: any) => {
+    const formatDate = (dateValue: Date | undefined) => {
         if (!dateValue) return "";
 
         try {
