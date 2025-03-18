@@ -249,6 +249,8 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                                         "Transporte",
                                         "Entretenimento",
                                         "Salário",
+                                        "Investimento",
+                                        "Compras"
                                     ]}
                                     name={field.name}
                                     value={field.value}
