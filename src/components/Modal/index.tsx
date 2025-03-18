@@ -10,7 +10,7 @@ export default function Modal({ isOpen, isClosed }: ModalProps) {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="absolute top-20 max-w-5xl w-4/5 h-4/5 flex flex-col items-center bg-bg-secondary rounded-2xl overflow-y-auto pb-5 md:pb-7">
+            <div className="max-w-3xl w-4/5 h-4/5 absolute top-20 flex flex-col items-center bg-bg-secondary rounded-2xl overflow-y-auto pb-5 md:pb-7">
                 <X
                     className="absolute right-4 top-4 md:right-10 md:top-10 cursor-pointer"
                     onClick={isClosed}

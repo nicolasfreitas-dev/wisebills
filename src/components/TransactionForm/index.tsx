@@ -110,7 +110,7 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                             </FormLabel>
                             <FormControl>
                                 <Input
-                                    className="h-14 rounded-[1.2rem] bg-bg-secondary border-border-color"
+                                    className="h-16 rounded-[1.2rem] bg-bg-secondary border-border-color"
                                     placeholder="Titulo da despesa"
                                     style={{ fontSize: "1.25rem" }}
                                     {...field}
@@ -130,7 +130,7 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                             </FormLabel>
                             <FormControl>
                                 <Input
-                                    className="h-14 rounded-[1.2rem] bg-bg-secondary border-border-color"
+                                    className="h-16 rounded-[1.2rem] bg-bg-secondary border-border-color"
                                     placeholder="R$ 0.000,00"
                                     style={{ fontSize: "1.25rem" }}
                                     {...field}
@@ -277,7 +277,7 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                                             type="button"
                                             variant={"outline"}
                                             className={cn(
-                                                "w-full h-14 rounded-[1.2rem] bg-bg-secondary border-border-color text-xl justify-start text-left",
+                                                "w-full h-16 rounded-[1.2rem] bg-bg-secondary border-border-color text-xl justify-start text-left",
                                                 !field.value &&
                                                     "text-muted-foreground"
                                             )}

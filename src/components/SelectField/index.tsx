@@ -28,7 +28,7 @@ export default function SelectField({
             name={name}
             defaultValue={value}
         >
-            <SelectTrigger className="h-14 rounded-[1.2rem] border-border-color text-xl">
+            <SelectTrigger className="h-16 rounded-[1.2rem] border-border-color text-xl">
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent className="bg-bg-secondary border-border-color">
