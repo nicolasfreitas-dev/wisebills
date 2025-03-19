@@ -14,6 +14,7 @@ export default function Header() {
                 <nav className={`h-24 flex items-center gap-10 list-none border-b-[1px] border-b-border-color ${windowSize <= 640 ? "hidden" : ""}`}>
                     <li className="cursor-pointer p-6">Visão geral</li>
                     <li className="cursor-pointer p-6">Detalhes</li>
+                    <li className="cursor-pointer p-6">Pendentes</li>
                     <li className="cursor-pointer p-6">Concluído</li>
                 </nav>
             </Navbar>
