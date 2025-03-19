@@ -70,7 +70,7 @@ export default function Home() {
     return (
         <>
             <Header />
-            <main className="md:flex md:gap-10 px-10 pb-5">
+            <main className="min-h-screen md:flex md:gap-10 px-10 pb-[75px] md:pb-6">
                 <div className="md:w-[60%] md:flex md:flex-col md:gap-4">
                     <Amount
                         balance={balance}
@@ -84,7 +84,7 @@ export default function Home() {
                         <Expenses expenses={expenses} />
                     </div>
                 </div>
-                <div className="md:w-[40%] md:h-screen flex flex-col mt-2">
+                <div className="md:w-[40%] h-screen flex flex-col mt-2">
                     <TransactionContainer title="Transações Pendentes">
                         <PendingTransaction />
                     </TransactionContainer>
@@ -97,7 +97,7 @@ export default function Home() {
                     isClosed={() => setIsModalOpen(false)}
                 />
                 <Navbar>
-                    <nav className="md:hidden w-full h-24 fixed bottom-0 left-0 flex items-center justify-evenly list-none border-t-[1px] border-t-border-color">
+                    <nav className="md:hidden w-full h-24 fixed bottom-0 left-0 flex items-center justify-evenly list-none bg-bg-primary border-t-[1px] border-t-border-color">
                         <li className="p-6 cursor-pointer">
                             <HouseIcon />
                         </li>
