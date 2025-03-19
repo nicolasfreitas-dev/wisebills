@@ -320,14 +320,14 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                 />
                 <div className="w-full flex items-center justify-center gap-5">
                     <Button
-                        className="w-full h-14 bg-dark-gray-detail rounded-[1.2rem]"
+                        className="w-full h-14 text-xl bg-dark-gray-detail rounded-[1.2rem]"
                         onClick={isClosed}
                         type="button"
                     >
                         Cancelar
                     </Button>
                     <Button
-                        className="w-full h-14 bg-green-detail rounded-[1.2rem]"
+                        className="w-full h-14 text-xl bg-green-detail rounded-[1.2rem]"
                         type="submit"
                     >
                         Adicionar
