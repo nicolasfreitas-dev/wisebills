@@ -301,15 +301,14 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                                     >
                                         <Calendar
                                             mode="single"
+                                            fixedWeeks
                                             selected={field.value}
                                             onSelect={(date) => {
                                                 field.onChange(date);
 
                                                 form.trigger("date");
                                             }}
-                                            initialFocus
                                             locale={ptBR}
-                                            fixedWeeks
                                         />
                                     </PopoverContent>
                                 </Popover>
