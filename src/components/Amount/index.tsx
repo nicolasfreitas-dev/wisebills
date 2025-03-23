@@ -1,16 +1,20 @@
+"use client"
+
 import AmountTypeContainer from "../AmountTypeContainer";
 import { ArrowUpDown, EyeClosedIcon, EyeIcon, Wallet } from "lucide-react";
 import { Button } from "../ui/button";
+import { useModalStore } from "@/store/modal";
 
 interface AmountProps{
     balance: number
     windowSize: number
     hideAmount: boolean
     handleHideAmount: () => void
-    handleModalOpen: () => void
 }
 
-export default function Amount({ balance, windowSize, hideAmount, handleHideAmount, handleModalOpen }: AmountProps) {
+export default function Amount({ balance, windowSize, hideAmount, handleHideAmount }: AmountProps) {
+    const { setIsOpen } = useModalStore()
+
     return (
         <>
             <AmountTypeContainer background="bg-bg-cash">
@@ -43,7 +47,7 @@ export default function Amount({ balance, windowSize, hideAmount, handleHideAmou
                         className={`bg-green-detail mt-3 rounded-[20px] px-8 py-6 text-xl ${
                             windowSize < 768 ? "hidden" : ""
                         }`}
-                        onClick={handleModalOpen}
+                        onClick={() => setIsOpen(true)}
                     >
                         <span>Adicionar transação</span>
                         <ArrowUpDown />
