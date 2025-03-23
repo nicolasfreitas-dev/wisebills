@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
+import Header from "@/components/Header";
+import MobileNavbar from "@/components/MobileNavbar";
 
 export const metadata: Metadata = {
   title: "Wisebills",
@@ -12,11 +14,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="pt-br">
-      <body className="bg-bg-primary text-primary-text-color font-Mulish">
-        {children}
-      </body>
-    </html>
-  )
+    return (
+      <html lang="pt-br">
+          <body className="bg-bg-primary text-primary-text-color font-Mulish">
+              <Header />
+              {children}
+              <MobileNavbar />
+          </body>
+      </html>
+  );
 }
