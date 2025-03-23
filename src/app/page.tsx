@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Modal from "@/components/Modal";
 import { useResize } from "@/hooks/useResize";
 import Amount from "@/components/Amount";
 import Expenses from "@/components/Expenses";
@@ -69,7 +68,6 @@ export default function Home() {
                 </div>
             </div>
             <TransactionsTable />
-            <Modal />
         </main>
     );
 }
