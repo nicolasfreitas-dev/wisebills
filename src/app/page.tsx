@@ -6,9 +6,8 @@ import { useResize } from "@/hooks/useResize";
 import Amount from "@/components/Amount";
 import Expenses from "@/components/Expenses";
 import Reserved from "@/components/Reserved";
-import PendingTransaction from "../components/PendingTransactions/index";
-import TransactionTable from "@/components/TransactionsTable";
 import { useTransactionStore } from "@/store/transactions";
+import TransactionsTable from "@/components/TransactionsTable";
 
 export default function Home() {
     const [hideAmount, setHideAmount] = useState(false);
@@ -57,7 +56,7 @@ export default function Home() {
 
     return (
         <main className="min-h-screen md:flex md:gap-10 px-10 pb-[75px] md:pb-6">
-            <div className="md:w-[60%] md:flex md:flex-col md:gap-4">
+            <div className="md:w-[70%] md:flex md:flex-col md:gap-4">
                 <Amount
                     balance={balance}
                     windowSize={windowSize}
@@ -69,9 +68,7 @@ export default function Home() {
                     <Expenses expenses={expenses} />
                 </div>
             </div>
-            <TransactionTable title="Transações Pendentes">
-                <PendingTransaction />
-            </TransactionTable>
+            <TransactionsTable />
             <Modal />
         </main>
     );
