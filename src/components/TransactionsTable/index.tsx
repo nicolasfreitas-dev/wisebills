@@ -1,7 +1,8 @@
-import { Checkbox } from "@radix-ui/react-checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Edit } from "lucide-react";
 import { Table, TableBody, TableRow, TableCell } from "../ui/table";
 import { useTransactionStore } from "@/store/transactions";
+import Link from "next/link";
 
 export default function TransactionsTable() {
     const { transactions, markAsCompleted } = useTransactionStore()
@@ -10,9 +11,9 @@ export default function TransactionsTable() {
         <div className="md:w-[30%] w-full md:h-screen border border-border-color rounded-[20px] flex flex-col mt-6 px-8">
             <div className="h-32 flex items-center justify-between">
                 <h3 className="text-3xl font-bold">Transações Pendentes</h3>
-                <span className="text-xl font-bold cursor-pointer">
+                <Link href="/pages/pending" className="text-xl font-bold cursor-pointer">
                     Ver mais
-                </span>
+                </Link>
             </div>
             <hr className="border-border-color" />
             <Table>
