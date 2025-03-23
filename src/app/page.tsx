@@ -7,7 +7,7 @@ import Amount from "@/components/Amount";
 import Expenses from "@/components/Expenses";
 import Reserved from "@/components/Reserved";
 import PendingTransaction from "../components/PendingTransactions/index";
-import TransactionContainer from "@/components/TransactionsContainer";
+import TransactionTable from "@/components/TransactionsTable";
 import { useTransactionStore } from "@/store/transactions";
 
 export default function Home() {
@@ -69,11 +69,9 @@ export default function Home() {
                     <Expenses expenses={expenses} />
                 </div>
             </div>
-            <div className="md:w-[40%] md:h-screen flex flex-col mt-2">
-                <TransactionContainer title="Transações Pendentes">
-                    <PendingTransaction />
-                </TransactionContainer>
-            </div>
+            <TransactionTable title="Transações Pendentes">
+                <PendingTransaction />
+            </TransactionTable>
             <Modal />
         </main>
     );
