@@ -1,3 +1,5 @@
+"use client"
+
 import { Edit } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
 import { Table, TableBody, TableRow, TableCell } from "../ui/table";
@@ -66,7 +68,7 @@ export default function CompletedTransactions() {
                 })}
                 {completedTransactions.length === 0 && (
                     <TableRow>
-                        <TableCell className="text-xl text-center col-span-3 py-4">
+                        <TableCell className="text-xl text-center col-span-3 py-10">
                             Nenhuma transação concluída
                         </TableCell>
                     </TableRow>
