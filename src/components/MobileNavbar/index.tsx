@@ -1,8 +1,9 @@
 "use client"
 
-import { HouseIcon, ChartColumnIcon, PlusIcon, CheckIcon } from "lucide-react";
+import { HouseIcon, ChartColumnIcon, PlusIcon, CheckIcon, TrendingDown } from "lucide-react";
 import Navbar from "../Navbar";
 import { useModalStore } from "@/store/modal";
+import Link from "next/link";
 
 export default function MobileNavbar() {
     const { setIsOpen } = useModalStore()
@@ -10,18 +11,24 @@ export default function MobileNavbar() {
     return (
         <Navbar>
             <nav className="md:hidden w-full h-24 fixed bottom-0 left-0 flex items-center justify-evenly list-none bg-bg-primary border-t-[1px] border-t-border-color">
-                <li className="p-6 cursor-pointer">
+                <Link href="/" className="p-6 cursor-pointer">
                     <HouseIcon />
-                </li>
-                <li className="p-6 cursor-pointer">
+                </Link>
+                <Link href="/pages/details" className="p-6 cursor-pointer">
                     <ChartColumnIcon />
-                </li>
-                <li className="p-6 cursor-pointer" onClick={() => setIsOpen(true)}>
+                </Link>
+                <li
+                    className="p-6 cursor-pointer"
+                    onClick={() => setIsOpen(true)}
+                >
                     <PlusIcon />
                 </li>
-                <li className="p-6 cursor-pointer">
+                <Link href="/pages/pending">
+                    <TrendingDown />
+                </Link>
+                <Link href="/pages/completed" className="p-6 cursor-pointer">
                     <CheckIcon />
-                </li>
+                </Link>
             </nav>
         </Navbar>
     );
