@@ -4,7 +4,7 @@ import { transaction } from "@/components/TransactionForm"
 
 type transactionType = z.infer<typeof transaction>
 
-interface useTransaction {
+type useTransaction = {
     transactions: transactionType[];
     completedTransactions: transactionType[];
     addTransaction: (transaction: transactionType) => void
