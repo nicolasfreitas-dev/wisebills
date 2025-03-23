@@ -21,10 +21,7 @@ import { z } from "zod";
 import { ptBR } from "date-fns/locale/pt-BR";
 import { format } from "date-fns";
 import { useTransactionStore } from "@/store/transactions";
-
-interface TransactionFormProps {
-    isClosed: () => void
-}
+import { useModalStore } from "@/store/modal";
 
 export const transaction = z
     .object({
@@ -63,8 +60,9 @@ export const transaction = z
         }
     })
 
-export default function TransactionForm({ isClosed }: TransactionFormProps) {
+export default function TransactionForm() {
     const { addTransaction } = useTransactionStore()
+    const { setIsOpen } = useModalStore()
 
     const randomID = Math.floor(Math.random() * 1000)
 
@@ -89,9 +87,9 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
     });
 
     const onSubmit = (data: z.infer<typeof transaction>) => {
-        addTransaction(data);
+        addTransaction(data)
 
-        isClosed();
+        setIsOpen(false)
     };
 
     return (
@@ -320,7 +318,7 @@ export default function TransactionForm({ isClosed }: TransactionFormProps) {
                 <div className="w-full flex items-center justify-center gap-5">
                     <Button
                         className="w-full h-14 text-xl bg-dark-gray-detail rounded-[1.2rem]"
-                        onClick={isClosed}
+                        onClick={() => setIsOpen(false)}
                         type="button"
                     >
                         Cancelar
