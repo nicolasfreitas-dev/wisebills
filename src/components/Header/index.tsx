@@ -10,7 +10,9 @@ export default function Header() {
 
     return (
         <header className="w-full h-24 flex items-center justify-between gap-4 border-b-[1px] border-b-border-color px-10">
-            <span className="text-4xl font-bold">Wisebills</span>
+            <span className="text-4xl font-bold">
+                <Link href="/">Wisebills</Link>
+            </span>
             <Navbar>
                 <nav className={`h-24 flex items-center gap-10 list-none border-b-[1px] border-b-border-color ${windowSize <= 640 ? "hidden" : ""}`}>
                     <Link href="/" className="cursor-pointer p-6">Visão geral</Link>
