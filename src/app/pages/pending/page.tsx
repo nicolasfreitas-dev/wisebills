@@ -11,13 +11,13 @@ export default function Completed() {
         const { setIsOpen } = useModalStore()
 
     return (
-        <section className="w-full min-h-screen px-10 py-6 pb-[75px] md:pb-6">
-            <div className="flex items-center justify-between pb-5">
+        <section className="w-full h-full flex flex-col min-h-0 px-10 mt-6 mb-28 md:mb-6">
+            <div className="flex items-center justify-between mb-5 shrink-0">
                 <h2 className="text-2xl md:text-3xl font-bold">
                     Transações Pendentes
                 </h2>
                 <Button
-                    className={`bg-green-detail rounded-[20px] px-8 py-6 text-xl ${
+                    className={`bg-quaternary rounded-[20px] px-8 py-6 text-xl ${
                         windowSize < 768 ? "hidden" : ""
                     }`}
                     onClick={() => setIsOpen(true)}

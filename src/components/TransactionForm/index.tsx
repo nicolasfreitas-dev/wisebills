@@ -95,7 +95,7 @@ export default function TransactionForm() {
     return (
         <Form {...form}>
             <form
-                className="w-full flex flex-col items-start px-8"
+                className="w-full h-full flex flex-col items-start justify-center px-8"
                 onSubmit={form.handleSubmit(onSubmit)}
             >
                 <FormField
@@ -108,13 +108,13 @@ export default function TransactionForm() {
                             </FormLabel>
                             <FormControl>
                                 <Input
-                                    className="h-16 rounded-[1.2rem] bg-bg-secondary border-border-color"
+                                    className="h-16 rounded-[1.2rem] bg-secondary border-witheWithOpacity"
                                     placeholder="Titulo da despesa"
                                     style={{ fontSize: "1.25rem" }}
                                     {...field}
                                 />
                             </FormControl>
-                            <FormMessage className="text-expense-color mt-2 text-xl" />
+                            <FormMessage className="text-expense mt-2 text-xl" />
                         </FormItem>
                     )}
                 />
@@ -128,13 +128,13 @@ export default function TransactionForm() {
                             </FormLabel>
                             <FormControl>
                                 <Input
-                                    className="h-16 rounded-[1.2rem] bg-bg-secondary border-border-color"
+                                    className="h-16 rounded-[1.2rem] bg-secondary border-witheWithOpacity"
                                     placeholder="R$ 0.000,00"
                                     style={{ fontSize: "1.25rem" }}
                                     {...field}
                                 />
                             </FormControl>
-                            <FormMessage className="text-expense-color mt-2 text-xl" />
+                            <FormMessage className="text-expense mt-2 text-xl" />
                         </FormItem>
                     )}
                 />
@@ -149,7 +149,7 @@ export default function TransactionForm() {
                             <FormControl>
                                 <SelectField
                                     placeholder="Selecione"
-                                    selectItem={["Gasto", "Depósito", "Reserva"]}
+                                    selectItem={["Gasto", "Depósito", "Investimento"]}
                                     name={field.name}
                                     value={field.value}
                                     onChange={(value) => {
@@ -158,7 +158,7 @@ export default function TransactionForm() {
                                     }}
                                 />
                             </FormControl>
-                            <FormMessage className="text-expense-color mt-2 text-xl" />
+                            <FormMessage className="text-expense mt-2 text-xl" />
                         </FormItem>
                     )}
                 />
@@ -175,8 +175,8 @@ export default function TransactionForm() {
                                     placeholder="Selecione"
                                     selectItem={[
                                         "Pix",
-                                        "À vista",
-                                        "Cartão",
+                                        "Débito",
+                                        "Cartão de crédito",
                                         "Depósito bancário",
                                     ]}
                                     name={field.name}
@@ -187,7 +187,7 @@ export default function TransactionForm() {
                                     }}
                                 />
                             </FormControl>
-                            <FormMessage className="text-expense-color mt-2 text-xl" />
+                            <FormMessage className="text-expense mt-2 text-xl" />
                         </FormItem>
                     )}
                 />
@@ -225,7 +225,7 @@ export default function TransactionForm() {
                                         }}
                                     />
                                 </FormControl>
-                                <FormMessage className="text-expense-color mt-2 text-xl" />
+                                <FormMessage className="text-expense mt-2 text-xl" />
                             </FormItem>
                         )}
                     />
@@ -239,26 +239,28 @@ export default function TransactionForm() {
                                 Categoria
                             </FormLabel>
                             <FormControl>
-                                <SelectField
-                                    placeholder="Selecione"
-                                    selectItem={[
-                                        "Lazer",
-                                        "Alimentação",
-                                        "Transporte",
-                                        "Entretenimento",
-                                        "Salário",
-                                        "Investimento",
-                                        "Compras"
-                                    ]}
-                                    name={field.name}
-                                    value={field.value}
-                                    onChange={(value) => {
-                                        field.onChange(value);
-                                        form.trigger("category");
-                                    }}
-                                />
+                                    <SelectField
+                                        placeholder="Selecione"
+                                        selectItem={[
+                                            "Lazer",
+                                            "Alimentação",
+                                            "Transporte",
+                                            "Salário",
+                                            "Entretenimento",
+                                            "Investimento",
+                                            "Compras",
+                                            "Poupança",
+                                            "Moradia"
+                                        ]}
+                                        name={field.name}
+                                        value={field.value}
+                                        onChange={(value) => {
+                                            field.onChange(value);
+                                            form.trigger("category");
+                                        }}
+                                    />
                             </FormControl>
-                            <FormMessage className="text-expense-color mt-2 text-xl" />
+                            <FormMessage className="text-expense mt-2 text-xl" />
                         </FormItem>
                     )}
                 />
@@ -277,7 +279,7 @@ export default function TransactionForm() {
                                             type="button"
                                             variant={"outline"}
                                             className={cn(
-                                                "w-full h-16 rounded-[1.2rem] bg-bg-secondary border-border-color text-xl justify-start text-left",
+                                                "w-full h-16 rounded-[1.2rem] bg-secondary border-witheWithOpacity text-xl justify-start text-left",
                                                 !field.value &&
                                                     "text-muted-foreground"
                                             )}
@@ -294,7 +296,7 @@ export default function TransactionForm() {
                                         </Button>
                                     </PopoverTrigger>
                                     <PopoverContent
-                                        className="bg-bg-secondary border-border-color p-0"
+                                        className="bg-secondary border-witheWithOpacity p-0"
                                         sideOffset={8}
                                     >
                                         <Calendar
@@ -311,20 +313,20 @@ export default function TransactionForm() {
                                     </PopoverContent>
                                 </Popover>
                             </FormControl>
-                            <FormMessage className="text-expense-color mt-2 text-xl" />
+                            <FormMessage className="text-expense mt-2 text-xl" />
                         </FormItem>
                     )}
                 />
                 <div className="w-full flex items-center justify-center gap-5">
                     <Button
-                        className="w-full h-14 text-xl bg-dark-gray-detail rounded-[1.2rem]"
+                        className="w-full h-14 text-xl bg-dark-gray rounded-[1.2rem]"
                         onClick={() => setIsOpen(false)}
                         type="button"
                     >
                         Cancelar
                     </Button>
                     <Button
-                        className="w-full h-14 text-xl bg-green-detail rounded-[1.2rem]"
+                        className="w-full h-14 text-xl bg-quaternary rounded-[1.2rem]"
                         type="submit"
                     >
                         Adicionar

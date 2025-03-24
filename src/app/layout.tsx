@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
     return (
       <html lang="pt-br">
-          <body className="bg-bg-primary text-primary-text-color font-Mulish">
+          <body className="bg-primary text-white font-Mulish">
               <Header />
               {children}
               <MobileNavbar />
@@ -26,3 +26,4 @@ export default function RootLayout({
       </html>
   );
 }
+ 

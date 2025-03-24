@@ -10,7 +10,7 @@ export default function MobileNavbar() {
     
     return (
         <Navbar>
-            <nav className="md:hidden w-full h-24 fixed bottom-0 left-0 flex items-center justify-evenly list-none bg-bg-primary border-t-[1px] border-t-border-color">
+            <nav className="md:hidden w-full h-24 fixed bottom-0 left-0 flex items-center justify-evenly list-none bg-primary border-t-[1px] border-t-witheWithOpacity">
                 <Link href="/" className="p-6 cursor-pointer">
                     <HouseIcon />
                 </Link>

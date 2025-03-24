@@ -54,15 +54,15 @@ export default function Home() {
     const { balance, expenses, reserved } = calculateBalance();
 
     return (
-        <main className="min-h-screen md:flex md:gap-10 px-10 pb-[75px] md:pb-6">
-            <div className="md:w-[70%] md:flex md:flex-col md:gap-4">
+        <main className="min-h-0 h-full flex flex-col md:flex-row md:gap-10 px-10 mb-28 md:mb-6">
+            <div className="md:w-[70%] flex flex-col md:gap-4">
                 <Amount
                     balance={balance}
                     windowSize={windowSize}
                     hideAmount={hideAmount}
                     handleHideAmount={handleHideAmount}
                 />
-                <div className="md:flex md:gap-10">
+                <div className="md:flex md:gap-10 flex-grow">
                     <Reserved reserved={reserved} />
                     <Expenses expenses={expenses} />
                 </div>

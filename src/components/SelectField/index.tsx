@@ -28,10 +28,10 @@ export default function SelectField({
             name={name}
             defaultValue={value}
         >
-            <SelectTrigger className="h-16 rounded-[1.2rem] border-border-color text-xl">
+            <SelectTrigger className="h-16 rounded-[1.2rem] border-witheWithOpacity text-xl">
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
-            <SelectContent className="bg-bg-secondary border-border-color">
+            <SelectContent className="bg-secondary border-witheWithOpacity">
                 {selectItem.map((item, index) => {
                     return (
                         <SelectItem

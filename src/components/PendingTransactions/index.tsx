@@ -9,27 +9,24 @@ export default function PendingTransactions() {
     const { transactions, markAsCompleted } = useTransactionStore()
 
     return (
-        <div className="border border-dark-gray-detail rounded-2xl overflow-hidden">
-            <Table className="w-full text-lg md:text-xl">
-                <TableHeader className="bg-dark-gray-detail">
-                    <TableRow className="border-dark-gray-detail">
-                        <TableHead>Data</TableHead>
-                        <TableHead>Nome</TableHead>
-                        <TableHead>Tipo</TableHead>
-                        <TableHead>Categoria</TableHead>
-                        <TableHead>Método</TableHead>
-                        <TableHead>Parcelas</TableHead>
-                        <TableHead>Valor</TableHead>
-                        <TableHead></TableHead>
+        <div className="h-full border border-darkGray rounded-2xl flex flex-col flex-grow overflow-auto">
+            <Table className="w-full h-full text-lg md:text-xl">
+                <TableHeader className="bg-purpleWithOpacity">
+                    <TableRow className="border-darkGray">
+                        <TableHead className="font-bold">Data</TableHead>
+                        <TableHead className="font-bold">Nome</TableHead>
+                        <TableHead className="font-bold">Tipo</TableHead>
+                        <TableHead className="font-bold">Categoria</TableHead>
+                        <TableHead className="font-bold">Método</TableHead>
+                        <TableHead className="font-bold">Parcelas</TableHead>
+                        <TableHead className="font-bold">Valor</TableHead>
+                        <TableHead className="font-bold"></TableHead>
                     </TableRow>
                 </TableHeader>
-                <TableBody className="">
+                <TableBody>
                     {transactions.map((transaction, index) => {
                         return (
-                            <TableRow
-                                key={index}
-                                className="border-dark-gray-detail"
-                            >
+                            <TableRow key={index} className="border-darkGray">
                                 <TableCell className="text-lg font-bold">
                                     {transaction.date
                                         .toLocaleDateString("pt-BR")
@@ -57,8 +54,8 @@ export default function PendingTransactions() {
                                 <TableCell
                                     className={`text-base md:text-lg font-bold ${
                                         transaction.type === "Gasto"
-                                            ? "text-expense-color"
-                                            : "text-green-detail"
+                                            ? "text-expense"
+                                            : "text-cash"
                                     }`}
                                 >
                                     {`R$ ${parseFloat(
@@ -67,12 +64,12 @@ export default function PendingTransactions() {
                                 </TableCell>
                                 <TableCell className="flex items-center justify-end gap-5 mr-5">
                                     <Checkbox
-                                        className="size-4"
+                                        className="size-5"
                                         onClick={() => {
                                             markAsCompleted(transaction.id);
                                         }}
                                     />
-                                    <Edit className="size-5 cursor-pointer" />
+                                    <Edit className="size-6 cursor-pointer" />
                                 </TableCell>
                             </TableRow>
                         );
@@ -80,8 +77,8 @@ export default function PendingTransactions() {
                 </TableBody>
             </Table>
             {transactions.length === 0 && (
-                <div className="w-full text-center">
-                    <span className="text-xl text-center col-span-3 py-10">
+                <div className="w-full text-center mt-5">
+                    <span className="text-xl md:text-2xl">
                         Nenhuma transação pendente
                     </span>
                 </div>
