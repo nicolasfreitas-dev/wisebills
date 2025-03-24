@@ -8,16 +8,16 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                "bg-primary": "#0F0E11",
-                "bg-secondary": "#141414",
-                "gray-detail": "#71717A",
-                "green-detail": "#55B02E",
-                "dark-gray-detail": "#1F1F21",
-                "bg-cash": "#161716",
-                "expense-color": "#E93030",
-                "bg-expense-color": "rgba(246, 53, 46, 0.08)",
-                "primary-text-color": "#FFFFFF",
-                "border-color": "rgba(255, 255, 255, 0.08)",
+                primary: "#0F0E11",
+                secondary: "#141414",
+                terciary: "#71717A",
+                quaternary: "#bc59f3",
+                darkGray: "#1F1F21",
+                cash: "#55B02E",
+                purpleWithOpacity: "rgba(50, 10, 107, 0.3)",
+                expense: "#E93030",
+                expenseWithOpacity: "rgba(246, 53, 46, 0.08)",
+                witheWithOpacity: "rgba(255, 255, 255, 0.08)",
             },
             fontFamily: {
                 Mulish: ["Mulish", "sans-serif"],
