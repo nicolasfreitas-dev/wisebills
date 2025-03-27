@@ -11,7 +11,7 @@ export default function Modal() {
         <>
             {isOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                    <div className="max-w-3xl w-4/5 h-4/5 md:h-full absolute top-20 md:top-0 md:right-0 flex flex-col items-center bg-secondary rounded-2xl overflow-y-auto pb-5 md:pb-7">
+                    <div className="max-w-2xl w-4/5 h-4/5 md:h-full absolute top-20 md:top-0 md:right-0 flex flex-col items-center bg-secondary overflow-y-auto pb-5 md:pb-7">
                         <X
                             className="absolute right-4 top-4 md:right-10 md:top-12 cursor-pointer"
                             onClick={() => setIsOpen(false)}
