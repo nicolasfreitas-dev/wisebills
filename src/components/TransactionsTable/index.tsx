@@ -44,7 +44,7 @@ export default function TransactionsTable() {
                                     </TableCell>
                                     <TableCell
                                         className={`text-lg font-bold ${
-                                            transaction.type === "Gasto"
+                                            transaction.type === "Saída"
                                                 ? "text-expense"
                                                 : "text-cash"
                                         }`}

@@ -31,17 +31,17 @@ export default function Home() {
                 transaction.amount.replace(/[^0-9,-]/g, "").replace(",", ".")
             );
 
-            if (transaction.type === "Depósito") {
+            if (transaction.type === "Entrada") {
                 balance += amount;
-            } else if (transaction.type === "Gasto") {
+            } else if (transaction.type === "Saída") {
                 balance -= amount;
                 expenses += amount;
-            } else {
+            } else if (transaction.type === "Reserva") {
                 reserved += amount;
             }
 
             if (
-                (transaction.type === "Gasto" && balance < 0) ||
+                (transaction.type === "Saída" && balance < 0) ||
                 (transaction.type === "Reserva" && balance < 0)
             ) {
                 balance = 0;
