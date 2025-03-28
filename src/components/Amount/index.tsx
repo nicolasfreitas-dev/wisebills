@@ -15,7 +15,7 @@ export default function Amount({ balance, windowSize, hideAmount, handleHideAmou
     const { setIsOpen } = useModalStore()
 
     return (
-        <div className="w-full h-56 border border-witheWithOpacity rounded-[20px] flex flex-col gap-3 items-start justify-center py-6 px-8 mt-6 bg-purpleWithOpacity">
+        <div className="w-full h-56 border border-witheWithOpacity rounded-[20px] flex flex-col gap-3 items-start justify-center py-6 px-8 mt-6 bg-darkGreen">
             <div className="flex items-center gap-3">
                 <div className="size-14 flex items-center justify-center bg-primary rounded-xl">
                     <Wallet />

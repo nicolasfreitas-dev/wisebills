@@ -11,7 +11,7 @@ export default function PendingTransactions() {
     return (
         <div className="h-full border border-darkGray rounded-2xl flex flex-col flex-grow overflow-auto">
             <Table className="w-full h-full text-lg md:text-xl">
-                <TableHeader className="bg-purpleWithOpacity">
+                <TableHeader className="bg-darkGreen">
                     <TableRow className="border-darkGray">
                         <TableHead className="font-bold">Data</TableHead>
                         <TableHead className="font-bold">Nome</TableHead>
@@ -53,7 +53,7 @@ export default function PendingTransactions() {
                                 </TableCell>
                                 <TableCell
                                     className={`text-base md:text-lg font-bold ${
-                                        transaction.type === "Gasto"
+                                        transaction.type === "Saída"
                                             ? "text-expense"
                                             : "text-cash"
                                     }`}
