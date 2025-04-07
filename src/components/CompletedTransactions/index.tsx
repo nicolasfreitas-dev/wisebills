@@ -58,7 +58,7 @@ export default function CompletedTransactions() {
                                     {transaction.paymentMethod}
                                 </TableCell>
                                 <TableCell>
-                                    {transaction.paymentMethod === "Cartão" ? (
+                                    {transaction.paymentMethod === "Cartão de crédito" ? (
                                         <span>
                                             Parcela 1 de {transaction.parcel}
                                         </span>

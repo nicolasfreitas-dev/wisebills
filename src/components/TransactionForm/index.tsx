@@ -79,18 +79,40 @@ export default function TransactionForm() {
             date: undefined,
         },
         mode: "all",
-    });
+    })
 
     const paymentMethod = useWatch({
         control: form.control,
         name: "paymentMethod",
-    });
+    })
+
+    const transactionType = useWatch({
+        control: form.control,
+        name: "type"
+    })
+
+    const expenseCategories = ["Alimentação", "Transporte", "Entretenimento", "Compras", "Moradia", "Saúde", "Educação", "Contas", "Lazer"]
+    const incomeCategories = ["Salário", "Investimento", "Freelance", "Empréstimo", "Vendas", "Bônus", "Presente"]
+    const reserveCategories = ["Poupança", "Emergência", "Viagem", "Objetivos Específicos"]
+
+    const getCategoriesByType = () => {
+        switch (transactionType) {
+            case "Entrada":
+                return incomeCategories;
+            case "Saída":
+                return expenseCategories;
+            case "Reserva":
+                return reserveCategories;
+            default:
+                return [];  
+        }
+    }
 
     const onSubmit = (data: z.infer<typeof transaction>) => {
         addTransaction(data)
 
         setIsOpen(false)
-    };
+    }
 
     return (
         <Form {...form}>
@@ -191,7 +213,7 @@ export default function TransactionForm() {
                         </FormItem>
                     )}
                 />
-                {paymentMethod === "Cartão" && (
+                {paymentMethod === "Cartão de crédito" && (
                     <FormField
                         control={form.control}
                         name="parcel"
@@ -230,28 +252,19 @@ export default function TransactionForm() {
                         )}
                     />
                 )}
-                <FormField
-                    control={form.control}
-                    name="category"
-                    render={({ field }) => (
-                        <FormItem className="w-full mb-8">
-                            <FormLabel className="text-2xl font-bold pb-2">
-                                Categoria
-                            </FormLabel>
-                            <FormControl>
+                {transactionType && (
+                    <FormField
+                        control={form.control}
+                        name="category"
+                        render={({ field }) => (
+                            <FormItem className="w-full mb-8">
+                                <FormLabel className="text-2xl font-bold pb-2">
+                                    Categoria
+                                </FormLabel>
+                                <FormControl>
                                     <SelectField
                                         placeholder="Selecione"
-                                        selectItem={[
-                                            "Lazer",
-                                            "Alimentação",
-                                            "Transporte",
-                                            "Salário",
-                                            "Entretenimento",
-                                            "Investimento",
-                                            "Compras",
-                                            "Poupança",
-                                            "Moradia"
-                                        ]}
+                                        selectItem={getCategoriesByType()}
                                         name={field.name}
                                         value={field.value}
                                         onChange={(value) => {
@@ -259,11 +272,12 @@ export default function TransactionForm() {
                                             form.trigger("category");
                                         }}
                                     />
-                            </FormControl>
-                            <FormMessage className="text-expense mt-2 text-xl" />
-                        </FormItem>
-                    )}
-                />
+                                </FormControl>
+                                <FormMessage className="text-expense mt-2 text-xl" />
+                            </FormItem>
+                        )}
+                    />
+                )}
                 <FormField
                     control={form.control}
                     name="date"
