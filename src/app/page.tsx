@@ -37,6 +37,7 @@ export default function Home() {
                 balance -= amount;
                 expenses += amount;
             } else if (transaction.type === "Reserva") {
+                balance -= amount;
                 reserved += amount;
             }
 
