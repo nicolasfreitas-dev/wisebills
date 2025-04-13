@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import MobileNavbar from "@/components/MobileNavbar";
-import Modal from "@/components/Modal";
 
 export const metadata: Metadata = {
   title: "Wisebills",
@@ -21,7 +20,6 @@ export default function RootLayout({
               <Header />
               {children}
               <MobileNavbar />
-              <Modal />
           </body>
       </html>
   );
