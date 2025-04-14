@@ -21,7 +21,7 @@ import { z } from "zod";
 import { ptBR } from "date-fns/locale/pt-BR";
 import { format } from "date-fns";
 import { useTransactionStore } from "@/store/transactions";
-import { useModalStore } from "@/store/modal";
+import { DialogClose } from "../ui/dialog";
 
 export const transaction = z
     .object({
@@ -62,7 +62,6 @@ export const transaction = z
 
 export default function TransactionForm() {
     const { addTransaction } = useTransactionStore()
-    const { setIsOpen } = useModalStore()
 
     const randomID = Math.floor(Math.random() * 1000)
 
@@ -110,8 +109,6 @@ export default function TransactionForm() {
 
     const onSubmit = (data: z.infer<typeof transaction>) => {
         addTransaction(data)
-
-        setIsOpen(false)
     }
 
     return (
@@ -323,6 +320,7 @@ export default function TransactionForm() {
                                                 form.trigger("date");
                                             }}
                                             locale={ptBR}
+
                                         />
                                     </PopoverContent>
                                 </Popover>
@@ -332,19 +330,14 @@ export default function TransactionForm() {
                     )}
                 />
                 <div className="w-full flex items-center justify-center gap-5">
-                    <Button
-                        className="w-full h-14 text-xl bg-dark-gray rounded-[1.2rem]"
-                        onClick={() => setIsOpen(false)}
-                        type="button"
+                    <DialogClose
+                        className="w-full h-14 text-xl bg-dark-gray rounded-[1.2rem] hover:bg-quaternary"
                     >
                         Cancelar
-                    </Button>
-                    <Button
-                        className="w-full h-14 text-xl bg-quaternary rounded-[1.2rem]"
-                        type="submit"
-                    >
+                    </DialogClose>
+                    <DialogClose className="w-full h-14 text-xl bg-quaternary rounded-[1.2rem]" type="button" >
                         Adicionar
-                    </Button>
+                    </DialogClose>
                 </div>
             </form>
         </Form>
