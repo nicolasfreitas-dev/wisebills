@@ -1,9 +1,8 @@
 "use client";
 
 import { useForm, useWatch } from "react-hook-form";
-import SelectField from "../SelectField";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import SelectField from "@/components/SelectField";
+import { Input } from "@/components/ui/input";
 import {
     Form,
     FormControl,
@@ -22,6 +21,11 @@ import { ptBR } from "date-fns/locale/pt-BR";
 import { format } from "date-fns";
 import { useTransactionStore } from "@/store/transactions";
 import { DialogClose } from "../ui/dialog";
+import { Button } from '@/components/ui/button';
+
+type TransactionFormProps = {
+    onSucess: () => void
+}
 
 export const transaction = z
     .object({
@@ -60,7 +64,7 @@ export const transaction = z
         }
     })
 
-export default function TransactionForm() {
+export default function TransactionForm({ onSucess }: TransactionFormProps) {
     const { addTransaction } = useTransactionStore()
 
     const randomID = Math.floor(Math.random() * 1000)
@@ -109,6 +113,10 @@ export default function TransactionForm() {
 
     const onSubmit = (data: z.infer<typeof transaction>) => {
         addTransaction(data)
+
+        form.reset()
+
+        onSucess()
     }
 
     return (
@@ -335,9 +343,9 @@ export default function TransactionForm() {
                     >
                         Cancelar
                     </DialogClose>
-                    <DialogClose className="w-full h-14 text-xl bg-quaternary rounded-[1.2rem]" type="button" >
+                    <Button className="w-full h-14 text-xl bg-quaternary rounded-[1.2rem]" type="submit" >
                         Adicionar
-                    </DialogClose>
+                    </Button>
                 </div>
             </form>
         </Form>

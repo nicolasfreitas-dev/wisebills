@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { ArrowUpDown, EyeClosedIcon, EyeIcon, Wallet } from "lucide-react";
 import {
   Dialog,
@@ -8,7 +9,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-
 import TransactionForm from "../TransactionForm";
 
 interface AmountProps{
@@ -19,6 +19,8 @@ interface AmountProps{
 }
 
 export default function Amount({ balance, windowSize, hideAmount, handleHideAmount }: AmountProps) {
+    const [openDialog, setDialogOpen] = useState(false)
+
     return (
         <div className="w-full h-56 border border-witheWithOpacity rounded-[20px] flex flex-col gap-3 items-start justify-center py-6 px-8 mt-6 bg-darkGreen">
             <div className="flex items-center gap-3">
@@ -44,7 +46,7 @@ export default function Amount({ balance, windowSize, hideAmount, handleHideAmou
                         />
                     )}
                 </div>
-                <Dialog>
+                <Dialog open={openDialog} onOpenChange={setDialogOpen}>
                     <DialogTrigger
                         className={`flex items-center gap-3 bg-quaternary mt-3 rounded-[20px] px-8 py-3 text-xl ${
                             windowSize < 768 ? "hidden" : ""
@@ -59,7 +61,7 @@ export default function Amount({ balance, windowSize, hideAmount, handleHideAmou
                                 Insira as informações abaixo
                             </DialogTitle>
                         </DialogHeader>
-                        <TransactionForm />
+                        <TransactionForm onSucess={() => setDialogOpen(false)} />
                     </DialogContent>
                 </Dialog>
             </div>
