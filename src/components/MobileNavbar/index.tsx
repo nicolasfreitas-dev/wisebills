@@ -12,7 +12,7 @@ export default function MobileNavbar() {
             <Link href="/" className="p-6 cursor-pointer">
                 <HouseIcon />
             </Link>
-            <Link href="/pages/details" className="p-6 cursor-pointer">
+            <Link href="/details" className="p-6 cursor-pointer">
                 <ChartColumnIcon />
             </Link>
             <li
@@ -21,10 +21,10 @@ export default function MobileNavbar() {
             >
                 <PlusIcon />
             </li>
-            <Link href="/pages/pending">
+            <Link href="/pending">
                 <TrendingDown />
             </Link>
-            <Link href="/pages/completed" className="p-6 cursor-pointer">
+            <Link href="/completed" className="p-6 cursor-pointer">
                 <CheckIcon />
             </Link>
         </nav>

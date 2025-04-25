@@ -12,9 +12,9 @@ export default function Header() {
 
         const links = [
             { href: "/", label: "Visão geral" },
-            { href: "/pages/details", label: "Detalhes" },
-            { href: "/pages/pending", label: "Pendente" },
-            { href: "/pages/completed", label: "Concluído" }
+            { href: "/details", label: "Detalhes" },
+            { href: "/pending", label: "Pendente" },
+            { href: "/completed", label: "Concluído" }
         ]
 
     return (
