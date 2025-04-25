@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Completed() {
         const { windowSize } = useResize();
-        const { setIsOpen } = useModalStore()
+        const { setOpenDialog } = useModalStore()
 
     return (
         <section className="w-full h-full flex flex-col min-h-0 px-10 mt-6 mb-28 md:mb-6">
@@ -20,7 +20,7 @@ export default function Completed() {
                     className={`bg-quaternary rounded-[20px] px-8 py-6 text-xl ${
                         windowSize < 768 ? "hidden" : ""
                     }`}
-                    onClick={() => setIsOpen(true)}
+                    onClick={() => setOpenDialog(true)}
                 >
                     <span>Adicionar transação</span>
                     <ArrowUpDown />

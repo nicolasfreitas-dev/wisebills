@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { ArrowUpDown, EyeClosedIcon, EyeIcon, Wallet } from "lucide-react";
 import {
   Dialog,
