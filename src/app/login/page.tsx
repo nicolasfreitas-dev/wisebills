@@ -14,20 +14,23 @@ import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-const loginFields = z.object({
+const loginSchema = z.object({
     email: z
         .string()
         .min(1, { message: "E-mail inválido." })
-        .regex(/^[a-z0-9-_.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i, "E-mail inválido."),
+        .regex(
+            /^[a-z0-9-_.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i,
+            "E-mail inválido."
+        ),
     password: z
         .string()
         .min(1, { message: "Senha inválida." })
-        .regex(/^[0-9]/g, "Senha inválida.")
+        .regex(/^[a-zA-Z0-9]/g, "Senha inválida."),
 });
 
 export default function Login() {
-    const form = useForm<z.infer<typeof loginFields>>({
-        resolver: zodResolver(loginFields),
+    const form = useForm<z.infer<typeof loginSchema>>({
+        resolver: zodResolver(loginSchema),
         defaultValues: {
             email: "",
             password: "",
@@ -35,8 +38,8 @@ export default function Login() {
         mode: "all"
     })
 
-    const onSubmit = (data: z.infer<typeof loginFields>) => {
-        console.log(data);
+    const onSubmit = (data: z.infer<typeof loginSchema>) => {
+        
     }
 
     return (
