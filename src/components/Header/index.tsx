@@ -1,8 +1,8 @@
 'use client'
 
+import Link from "next/link";
 import { CircleUserRound } from "lucide-react";
 import { useResize } from "@/hooks/useResize";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Header() {
@@ -12,9 +12,9 @@ export default function Header() {
 
         const links = [
             { href: "/", label: "Visão geral" },
-            { href: "/pages/details", label: "Detalhes" },
-            { href: "/pages/pending", label: "Pendente" },
-            { href: "/pages/completed", label: "Concluído" }
+            { href: "/details", label: "Detalhes" },
+            { href: "/pending", label: "Pendente" },
+            { href: "/completed", label: "Concluído" }
         ]
 
     return (
