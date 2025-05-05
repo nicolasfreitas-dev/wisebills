@@ -57,10 +57,18 @@ export default function Register() {
             confirmPassword: ""
         },
         mode: "all",
+<<<<<<< HEAD
     })
 
     // const onSubmit = (data: z.infer<typeof registerSchema>) => {
     // }
+=======
+    });
+
+    const onSubmit = (data: z.infer<typeof registerSchema>) => {
+        console.log(data);
+    };
+>>>>>>> e686dce7bfa8fafeb3607509fb64ffb13201048a
 
     return (
         <section className="w-full h-full flex items-center justify-center">
