@@ -17,6 +17,13 @@
 /.next/
 /out/
 
+# Prisma build artifacts
+node_modules/.prisma/
+.prisma/
+
+# Prisma client
+src/generated/prisma/
+
 # production
 /build
 
