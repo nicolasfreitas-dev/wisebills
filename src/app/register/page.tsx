@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -38,11 +38,11 @@ const registerSchema = z.object({
     password: z
         .string()
         .min(1, { message: "Senha inválida." })
-        .regex(/^[a-aA-Z0-9]/g, "Senha inválida."),
+        .regex(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/, "Senha inválida."),
     confirmPassword: z
         .string()
         .min(1, { message: "Senha inválida." })
-        .regex(/^[a-zA-Z0-9]/g, "Senha inválida."),
+        .regex(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/, "Senha inválida."),
 });
 
 export default function Register() {
@@ -57,18 +57,20 @@ export default function Register() {
             confirmPassword: ""
         },
         mode: "all",
-<<<<<<< HEAD
     })
 
-    // const onSubmit = (data: z.infer<typeof registerSchema>) => {
-    // }
-=======
-    });
+    // const passwordMatch = useWatch({
+    //     control: form.control,
+    //     name: "confirmPassword"
+    // })
 
     const onSubmit = (data: z.infer<typeof registerSchema>) => {
-        console.log(data);
-    };
->>>>>>> e686dce7bfa8fafeb3607509fb64ffb13201048a
+        if (data.password !== data.confirmPassword) {
+            console.log("Senhas diferentes")
+
+            return;
+        }
+    }
 
     return (
         <section className="w-full h-full flex items-center justify-center">
