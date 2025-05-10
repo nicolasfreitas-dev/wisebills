@@ -39,7 +39,7 @@ export default function Login() {
     })
 
     const onSubmit = (data: z.infer<typeof loginSchema>) => {
-        
+        console.log(data);
     }
 
     return (
