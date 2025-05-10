@@ -15,9 +15,25 @@ type useTransaction = {
 export const useTransactionStore = create<useTransaction>((set) => ({
     transactions: [],
     completedTransactions: [],
-    addTransaction: (transaction) => set((state) => ({
-        transactions: [...state.transactions, transaction]
-    })),
+    addTransaction: async (transaction) => {
+        const res = await fetch("/api/transactions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(transaction),
+        });
+
+        if (!res.ok) {
+            throw new Error("Erro ao salvar transação");
+        }
+
+        const newTransaction = await res.json();
+
+        set((state) => ({
+            transactions: [...state.transactions, newTransaction],
+        }));
+    },
     addCompletedTransaction: (transaction) => set((state) => ({
     completedTransactions: [...state.completedTransactions, transaction]
     })),
