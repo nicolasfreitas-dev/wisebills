@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function Post(req: NextRequest) {
+export async function POST(req: NextRequest) {
     const body = await req.json();
 
     const { title, amount, type, paymentMethod, parcel, category, date } = body;
