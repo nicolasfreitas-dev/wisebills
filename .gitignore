@@ -17,12 +17,10 @@
 /.next/
 /out/
 
-# Prisma build artifacts
 node_modules/
 .prisma/
 
-# Prisma client
-src/generated/prisma/
+/src/generated/
 
 # production
 /build
