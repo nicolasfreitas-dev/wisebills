@@ -1,8 +1,8 @@
 import { create } from "zustand"
 import { z } from "zod"
-import { transaction } from "@/components/TransactionForm"
+import { transactionSchema } from "@/lib/validations/transaction-schema"
 
-type transactionType = z.infer<typeof transaction>
+type transactionType = z.infer<typeof transactionSchema>
 
 type useTransaction = {
     transactions: transactionType[];
