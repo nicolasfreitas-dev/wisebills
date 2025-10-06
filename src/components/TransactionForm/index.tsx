@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm, useWatch } from "react-hook-form";
+import { transactionSchema } from "@/lib/validations/transaction-schema";
 import SelectField from "@/components/SelectField";
 import { Input } from "@/components/ui/input";
 import {
@@ -27,50 +28,13 @@ type TransactionFormProps = {
     onSucess: () => void
 }
 
-export const transaction = z
-    .object({
-        id: z.number(),
-        title: z
-            .string()
-            .min(1, { message: "Informe o título da transação" })
-            .regex(/^[a-zA-Z]/g, { message: "Título inválido" }),
-        amount: z
-            .string()
-            .min(1, { message: "Informe o valor da transação" })
-            .regex(/^[0-9]/g, { message: "Valor inválido" }),
-        type: z.string().min(1, { message: "Selecione o tipo da transação" }),
-        paymentMethod: z
-            .string()
-            .min(1, { message: "Selecione o método de pagamento" }),
-        parcel: z.string().optional(),
-        category: z
-            .string()
-            .min(1, { message: "Selecione a categoria da transação" }),
-        date: z.date({
-            required_error: "Informe a data da transação",
-            invalid_type_error: "Data inválida",
-        }),
-    })
-    .superRefine((data, ctx) => {
-        if (
-            data.paymentMethod === "Cartão" &&
-            (!data.parcel || data.parcel.length === 0)
-        ) {
-            ctx.addIssue({
-                code: z.ZodIssueCode.custom,
-                message: "Selecione o número de parcelas",
-                path: ["parcel"],
-            });
-        }
-    })
-
 export default function TransactionForm({ onSucess }: TransactionFormProps) {
     const { addTransaction } = useTransactionStore()
 
     const randomID = Math.floor(Math.random() * 1000)
 
-    const form = useForm<z.infer<typeof transaction>>({
-        resolver: zodResolver(transaction),
+    const form = useForm<z.infer<typeof transactionSchema>>({
+        resolver: zodResolver(transactionSchema),
         defaultValues: {
             id: randomID,
             title: "",
@@ -111,7 +75,7 @@ export default function TransactionForm({ onSucess }: TransactionFormProps) {
         }
     }
 
-    const onSubmit = (data: z.infer<typeof transaction>) => {
+    const onSubmit = (data: z.infer<typeof transactionSchema>) => {
         addTransaction(data)
 
         form.reset()
