@@ -4,10 +4,12 @@ import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
+export async function GET(_req: Request, context: { params: { id: string } }) {
+    const { id } = context.params;
+
     try {
         const transaction = await prisma.transaction.findUnique({
-            where: {id: Number(params.id)},
+            where: {id: Number(id)},
         });
 
         if (!transaction) {
