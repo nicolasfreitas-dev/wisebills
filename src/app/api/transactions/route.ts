@@ -1,4 +1,3 @@
-import { transactionSchema } from "@/lib/validations/transaction-schema";
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -27,7 +26,10 @@ export async function POST(req: NextRequest) {
     } catch (error) {
         console.error(error);
 
-        return NextResponse.json({ error: "Erro ao criar transação" }, { status: 500 });
+        return NextResponse.json(
+            { error: "Erro ao criar transação" }, 
+            { status: 500 }
+        );
     }
 }
 
@@ -39,25 +41,10 @@ export async function GET() {
     }
     catch (error) {
         console.error(error);
-    }
-}
 
-export async function UPDATE(req: Request, { params }: {params : {id: string}}) {
-    try {
-        const data = await req.json();
-        const response = transactionSchema.parse(data);
-        const transaction = await prisma.transaction.update({
-            where: { id: Number(params.id) },
-            data: {
-                ...response,
-                amount: parseFloat(response.amount),
-                parcel: response.parcel ? parseInt(response.parcel) : undefined,
-            },
-        });
-
-        return NextResponse.json(transaction)
-
-    } catch (error) {
-        return NextResponse.json({error: (error as Error).message || "Erro ao atualizar transação"}, {status: 400})
+        return NextResponse.json(
+            { error: "Erro ao buscar transações" },
+            { status: 500 }
+        );
     }
 }
