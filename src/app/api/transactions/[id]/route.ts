@@ -4,8 +4,8 @@ import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function GET(_req: Request, context: { params: { id: string } }) {
-    const { id } = context.params;
+export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
 
     try {
         const transaction = await prisma.transaction.findUnique({
@@ -32,13 +32,15 @@ export async function GET(_req: Request, context: { params: { id: string } }) {
 
 export async function PUT(
     req: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
+    const { id } = await params;
+
     try {
         const data = await req.json();
         const response = transactionSchema.parse(data);
         const transaction = await prisma.transaction.update({
-            where: { id: Number(params.id) },
+            where: { id: Number(id) },
             data: {
                 ...response,
                 amount: parseFloat(response.amount),
@@ -58,15 +60,22 @@ export async function PUT(
     }
 }
 
-export async function DELETE(_req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(
+    _req: Request,
+    { params }: { params: Promise<{ id: string }> }
+) {
+    const { id } = await params;
+
     try {
         await prisma.transaction.delete({
-            where: {id: Number(params.id)}
-        })
+            where: { id: Number(id) },
+        });
 
-        return NextResponse.json({message: "Transação deletada com sucesso!"});
+        return NextResponse.json({
+            message: "Transação deletada com sucesso!",
+        });
     } catch (error) {
-        console.error(error)
+        console.error(error);
 
         return NextResponse.json(
             { error: "Erro ao excluir transação" },
