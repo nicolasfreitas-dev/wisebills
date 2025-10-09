@@ -5,16 +5,16 @@ import { transactionSchema } from "@/lib/validations/transaction-schema"
 type transactionType = z.infer<typeof transactionSchema>
 
 type useTransaction = {
-    transactions: transactionType[];
-    completedTransactions: transactionType[];
+    pending: transactionType[]
+    completed: transactionType[]
     addTransaction: (transaction: transactionType) => void
-    addCompletedTransaction: (transaction: transactionType) => void
     markAsCompleted: (id: number) => void
+    revertToPending: (id: number) => void
 }
 
 export const useTransactionStore = create<useTransaction>((set) => ({
-    transactions: [],
-    completedTransactions: [],
+    pending: [],
+    completed: [],
     addTransaction: async (transaction) => {
         const res = await fetch("/api/transactions", {
             method: "POST",
@@ -25,26 +25,33 @@ export const useTransactionStore = create<useTransaction>((set) => ({
         });
 
         if (!res.ok) {
-            throw new Error("Erro ao salvar transação");
+            throw new Error("Erro ao salvar transação")
         }
 
         const newTransaction = await res.json();
 
         set((state) => ({
-            transactions: [...state.transactions, newTransaction],
+            pending: [...state.pending, newTransaction],
         }));
     },
-    addCompletedTransaction: (transaction) => set((state) => ({
-    completedTransactions: [...state.completedTransactions, transaction]
-    })),
     markAsCompleted: (id) => set((state) => {
-        const isCompleted = state.transactions.find((data) => data.id === id)
+        const isCompleted = state.pending.find((data) => data.id === id)
 
-        if (!isCompleted) return state;
+        if (!isCompleted) return state
 
         return {
-            transactions: state.transactions.filter((data) => data.id !== id),
-            completedTransactions: [...state.completedTransactions, isCompleted]
+            pending: state.pending.filter((data) => data.id !== id),
+            completed: [...state.completed, isCompleted]
+        }
+    }),
+    revertToPending: (id) => set((state) => {
+        const isPending = state.completed.find((data) => data.id === id)
+
+        if (!isPending) return state
+
+        return {
+            pending: [...state.pending, isPending],
+            completed: state.completed.filter((data) => data.id !== id)
         }
     })
 }))
