@@ -10,7 +10,7 @@ import TransactionsTable from "@/components/TransactionsTable";
 
 export default function Home() {
     const [hideAmount, setHideAmount] = useState(false);
-    const { transactions } = useTransactionStore();
+    const { pending } = useTransactionStore();
     const { windowSize } = useResize();
 
     const handleHideAmount = () => {
@@ -26,9 +26,9 @@ export default function Home() {
         let expenses = 0;
         let reserved = 0;
 
-        transactions.forEach((transaction) => {
+        pending.forEach((transaction) => {
             const amount = parseFloat(
-                transaction.amount.replace(/[^0-9,-]/g, "").replace(",", ".")
+                String(transaction.amount).replace(/[^0-9,-]/g, "").replace(",", ".")
             );
 
             if (transaction.type === "Entrada") {

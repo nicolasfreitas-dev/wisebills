@@ -6,7 +6,7 @@ import { Edit } from "lucide-react";
 import { useTransactionStore } from "@/store/transactions";
 
 export default function PendingTransactions() {
-    const { transactions, markAsCompleted } = useTransactionStore()
+    const { pending, markAsCompleted } = useTransactionStore()
 
     return (
         <div className="h-full border border-darkGray rounded-2xl flex flex-col flex-grow overflow-auto">
@@ -24,11 +24,11 @@ export default function PendingTransactions() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {transactions.map((transaction, index) => {
+                    {pending.map((transaction, index) => {
                         return (
                             <TableRow key={index} className="border-darkGray">
                                 <TableCell className="text-lg font-bold">
-                                    {transaction.date
+                                    {new Date(transaction.date)
                                         .toLocaleDateString("pt-BR")
                                         .split("/")
                                         .slice(0, 2)
@@ -65,9 +65,7 @@ export default function PendingTransactions() {
                                 <TableCell className="flex items-center justify-end gap-5 mr-5">
                                     <Checkbox
                                         className="size-5"
-                                        onClick={() => {
-                                            markAsCompleted(transaction.id);
-                                        }}
+                                        onClick={() => markAsCompleted(transaction.id)}
                                     />
                                     <Edit className="size-6 cursor-pointer" />
                                 </TableCell>
@@ -76,7 +74,7 @@ export default function PendingTransactions() {
                     })}
                 </TableBody>
             </Table>
-            {transactions.length === 0 && (
+            {pending.length === 0 && (
                 <div className="w-full text-center mt-5">
                     <span className="text-xl md:text-2xl">
                         Nenhuma transação pendente

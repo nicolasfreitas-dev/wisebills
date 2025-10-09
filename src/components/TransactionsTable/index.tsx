@@ -5,7 +5,7 @@ import { useTransactionStore } from "@/store/transactions";
 import Link from "next/link";
 
 export default function TransactionsTable() {
-    const { transactions, markAsCompleted } = useTransactionStore()
+    const { pending, markAsCompleted } = useTransactionStore()
     
     return (
         <div className="md:w-[30%] w-full border border-witheWithOpacity rounded-[20px] flex flex-col flex-grow md:flex-grow-0 mt-6 px-8">
@@ -19,14 +19,14 @@ export default function TransactionsTable() {
             <div className="flex-grow overflow-auto">
                 <Table>
                     <TableBody>
-                        {transactions.map((transaction, index) => {
+                        {pending.map((transaction, index) => {
                             return (
                                 <TableRow
                                     key={index}
                                     className="flex items-center justify-between border-0"
                                 >
                                     <TableCell className="text-lg font-bold">
-                                        {transaction.date
+                                        {new Date(transaction.date)
                                             .toLocaleDateString("pt-BR")
                                             .split("/")
                                             .slice(0, 2)
@@ -65,7 +65,7 @@ export default function TransactionsTable() {
                                 </TableRow>
                             );
                         })}
-                        {transactions.length === 0 && (
+                        {pending.length === 0 && (
                             <TableRow>
                                 <TableCell className="text-xl text-center py-10">
                                     Nenhuma transação pendente

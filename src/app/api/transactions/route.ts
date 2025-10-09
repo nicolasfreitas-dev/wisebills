@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
                 title,
                 amount: parseFloat(amount),
                 type,
-                paymentMethod ,
+                paymentMethod,
                 parcel: parcel ? parseInt(parcel) : undefined,
                 category,
                 date: new Date(date)
