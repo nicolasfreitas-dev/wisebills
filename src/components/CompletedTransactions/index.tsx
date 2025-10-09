@@ -6,7 +6,7 @@ import { Table, TableBody, TableRow, TableCell, TableHead, TableHeader } from ".
 import { useTransactionStore } from "@/store/transactions";
 
 export default function CompletedTransactions() {
-    const { completedTransactions } = useTransactionStore()
+    const { completed, revertToPending } = useTransactionStore()
 
     const formatDate = (dateValue: Date | undefined) => {
         if (!dateValue) return "";
@@ -40,7 +40,7 @@ export default function CompletedTransactions() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {completedTransactions.map((transaction, index) => {
+                    {completed.map((transaction, index) => {
                         return (
                             <TableRow
                                 key={index}
@@ -78,7 +78,10 @@ export default function CompletedTransactions() {
                                     ).toFixed(2)}`}
                                 </TableCell>
                                 <TableCell className="flex items-center justify-end gap-5 mr-5">
-                                    <Checkbox className="size-5" />
+                                    <Checkbox 
+                                    className="size-5"
+                                    onClick={() => revertToPending(transaction.id)}
+                                    />
                                     <Edit className="size-6 cursor-pointer" />
                                 </TableCell>
                             </TableRow>
@@ -86,7 +89,7 @@ export default function CompletedTransactions() {
                     })}
                 </TableBody>
             </Table>
-            {completedTransactions.length === 0 && (
+            {completed.length === 0 && (
                 <div className="w-full text-center mt-5">
                     <span className="text-xl md:text-2xl">
                         Nenhuma transação concluída
