@@ -72,12 +72,16 @@ const transactionsData = [
     ]
 
 export async function main() {
+    await prisma.user.deleteMany();
+
     for (const u of userData) {
         await prisma.user.create({ data: u });
     }
 }
 
 export async function transaction() {
+    await prisma.user.deleteMany();
+
     for (const u of transactionsData) {
         await prisma.transaction.create({ data: u })
     }
