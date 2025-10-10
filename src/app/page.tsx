@@ -4,14 +4,16 @@ import { useState } from "react";
 import { useResize } from "@/hooks/useResize";
 import Amount from "@/components/Amount";
 import Expenses from "@/components/Expenses";
-import Reserved from "@/components/Reserved";
+import Savings from "@/components/Savings";
 import { useTransactionStore } from "@/store/transactions";
 import TransactionsTable from "@/components/TransactionsTable";
 
 export default function Home() {
     const [hideAmount, setHideAmount] = useState(false);
-    const { pending } = useTransactionStore();
+    const { pending, completed } = useTransactionStore();
     const { windowSize } = useResize();
+
+    const allTransaction = [...pending, ...completed];
 
     const handleHideAmount = () => {
         if (hideAmount) {
@@ -24,35 +26,33 @@ export default function Home() {
     const calculateBalance = () => {
         let balance = 0;
         let expenses = 0;
-        let reserved = 0;
+        let savings = 0;
 
-        pending.forEach((transaction) => {
-            const amount = parseFloat(
-                String(transaction.amount).replace(/[^0-9,-]/g, "").replace(",", ".")
-            );
+        allTransaction.forEach((transaction) => {
+            
+            const amount = typeof transaction.amount === "number"
+                ? transaction.amount
+                : parseFloat(String(transaction.amount).replace(/[^\d.-]/g, ""));
 
-            if (transaction.type === "Entrada") {
+            const type = transaction.type.toUpperCase();
+
+            if (type === "INCOME" || type === "ENTRADA") {
                 balance += amount;
-            } else if (transaction.type === "Saída") {
+            } else if (type === "EXPENSE" || type === "SAÍDA") {
                 balance -= amount;
                 expenses += amount;
-            } else if (transaction.type === "Reserva") {
+            } else if (type === "SAVINGS" || type === "RESERVA") {
                 balance -= amount;
-                reserved += amount;
+                savings += amount;
             }
 
-            if (
-                (transaction.type === "Saída" && balance < 0) ||
-                (transaction.type === "Reserva" && balance < 0)
-            ) {
-                balance = 0;
-            }
+            if (balance < 0) return balance = 0;
         });
 
-        return { balance, expenses, reserved };
+        return { balance, expenses, savings };
     };
 
-    const { balance, expenses, reserved } = calculateBalance();
+    const { balance, expenses, savings } = calculateBalance();
 
     return (
         <main className="min-h-0 h-full flex flex-col md:flex-row md:gap-10 px-10 mb-28 md:mb-6">
@@ -64,7 +64,7 @@ export default function Home() {
                     handleHideAmount={handleHideAmount}
                 />
                 <div className="md:flex md:gap-10 flex-grow">
-                    <Reserved reserved={reserved} />
+                    <Savings savings={savings} />
                     <Expenses expenses={expenses} />
                 </div>
             </div>
