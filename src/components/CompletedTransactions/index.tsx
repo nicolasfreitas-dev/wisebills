@@ -68,7 +68,7 @@ export default function CompletedTransactions() {
                                 </TableCell>
                                 <TableCell
                                     className={`text-base md:text-lg font-bold ${
-                                        transaction.type === "Saída"
+                                        transaction.type === "EXPENSE"
                                             ? "text-expense"
                                             : "text-cash"
                                     }`}

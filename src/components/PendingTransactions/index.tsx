@@ -4,9 +4,14 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { Checkbox } from "../ui/checkbox";
 import { Edit } from "lucide-react";
 import { useTransactionStore } from "@/store/transactions";
+import { useEffect } from "react";
 
 export default function PendingTransactions() {
-    const { pending, markAsCompleted } = useTransactionStore()
+    const { pending, markAsCompleted, fetchTransactions } = useTransactionStore()
+
+    useEffect(() => {
+        fetchTransactions()
+    }, [fetchTransactions])
 
     return (
         <div className="h-full border border-darkGray rounded-2xl flex flex-col flex-grow overflow-auto">
@@ -53,7 +58,7 @@ export default function PendingTransactions() {
                                 </TableCell>
                                 <TableCell
                                     className={`text-base md:text-lg font-bold ${
-                                        transaction.type === "Saída"
+                                        transaction.type === "EXPENSE"
                                             ? "text-expense"
                                             : "text-cash"
                                     }`}
