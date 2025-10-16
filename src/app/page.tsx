@@ -34,7 +34,7 @@ export default function Home() {
                 ? transaction.amount
                 : parseFloat(String(transaction.amount).replace(/[^\d.-]/g, ""));
 
-            const type = transaction.type.toUpperCase();
+            const type = transaction.type.trim().toUpperCase();
 
             if (type === "INCOME" || type === "ENTRADA") {
                 balance += amount;
