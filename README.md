@@ -1,4 +1,4 @@
-<h1 align="center" style="font-weight: bold;">Wisebills (Front-end) 💻</h1>
+<h1 align="center" style="font-weight: bold;">Wisebills 💻</h1>
 
 <p align="center">
  <a href="#tech">Tecnologias</a>
